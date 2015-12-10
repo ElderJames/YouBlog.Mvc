@@ -4,7 +4,7 @@ A Little Blog Build Whit ASP.NET MVC + EF6
 Demo：http://youblog.yangshunjie.com/
 
 ###特点：
-0. 文章使用Markdown编辑器；
+0. 文章使用Markdown编辑器（[editor.md](https://github.com/pandao/editor.md)）；
 0. 优化路由配置，文章、栏目、菜单等Url可以使用可读性强的英文（自动翻译）替代；
 1. 文章可设置为独立页面；
 2. 自定义菜单；
@@ -18,7 +18,7 @@ Demo：http://youblog.yangshunjie.com/
 4. 减少View视图重复；
 5. 加入Email功能；
 6. 整体优化；
-7. 多级菜单；
+7. 主页多级菜单；
 
 ###长期目标
 0. 主题系统；
