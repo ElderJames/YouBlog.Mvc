@@ -1,0 +1,111 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using You.Service;
+using You.Models;
+using You.Data.Types;
+
+namespace You.Web.Areas.Admin.Controllers
+{
+    [AdminAuthorize]
+    public class CategoryController : Controller
+    {
+        protected CategoryService categoryService;
+        protected CommonModelService commonModelService;
+
+        public CategoryController() { categoryService = new CategoryService(); commonModelService = new CommonModelService(); }
+        // GET: You/Category
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Tree(CategoryType? type)
+        {
+            var _tree = categoryService.FindTree(type);
+            return new Json(_tree);
+        }
+
+        public ActionResult List(CategoryType? type)
+        {
+            try
+            {
+                List<Category> list = categoryService.FindList(type);
+                return new Json(list);
+            }
+            catch
+            {
+                return new Json(new { });
+            }
+        }
+
+        public ActionResult Add(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                category=categoryService.Add(category);
+                if(category.CategoryID>0)
+                    return new Json(new { result = true, cat = category });
+            }
+            return new Fail();
+        }
+
+        public ActionResult Edit(int id, FormCollection collection)
+        {
+            if (id > 0)
+            {
+                Category _category = categoryService.Find(id);
+                TryUpdateModel(_category, "", collection.AllKeys, new string[] { "CategoryID", "ParentPath", "CreateTime", "State", "Type" });
+                if (categoryService.Update(_category)) return new Success();
+            }
+            return new Fail();
+        }
+
+        //public ActionResult Delete(int id,int removeTo=0)
+        //{
+        //    var _commonModel = commonModelService.FindByCategory(id);
+        //    foreach (var com in _commonModel)
+        //    {
+        //        com.CategoryID = removeTo;
+        //        commonModelService.Update(com,false);
+        //    }
+        //    commonModelService.Save();
+        //    if (categoryService.Delete(id)) return Json(true);
+        //    else return Json(false);
+        //}
+
+        [HttpPost]
+        public ActionResult Delete(int[] CategoryID)
+        {
+            foreach (var mid in CategoryID)
+            {
+                var _category = categoryService.Find(mid);
+                if (_category != null)
+                {
+                    _category.State = ItemState.Deleted;
+                    categoryService.Update(_category, false);
+                }
+                else return new Fail("未找到此菜单项");
+            }
+            if (categoryService.Save() > 0) return new Success();
+            else return new Fail();
+        }
+        [HttpPost]
+        public ActionResult Recovery(int[] CategoryID)
+        {
+            foreach (var mid in CategoryID)
+            {
+                var _category = categoryService.Find(mid);
+                if (_category != null)
+                {
+                    _category.State = ItemState.Nomal;
+                    categoryService.Update(_category, false);
+                }
+            }
+            if (categoryService.Save() == CategoryID.Count()) return new Success();
+            return new Fail("未找到此菜单项");
+        }
+    }
+}

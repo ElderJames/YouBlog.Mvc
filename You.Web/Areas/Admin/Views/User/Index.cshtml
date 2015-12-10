@@ -1,0 +1,133 @@
+﻿@using You.Models;
+@model User
+@{
+    ViewBag.Title = "用户管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+    <link href="~/Areas/Admin/css/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/select2.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/bootstrap-treeview.min.css" rel="stylesheet" />
+}
+
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb"> <a href="index.html" title="回到首页" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+        <h1>用户管理</h1>
+    </div>
+    <!--End-breadcrumbs-->
+    <!--Action boxes-->
+    <div class="container-fluid">
+        <!--End-Action boxes-->
+        <hr>
+        <!--Chart-box-->
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+
+                    <div class="widget-title">
+                        <span class="icon"> <i class="icon-th"></i> </span>
+                        <h5>用户列表</h5>
+                        @*<span class="label label-info">Featured</span>*@
+                    </div>
+                    <div class="widget-content">
+                        <div id="toolbar">
+                            <div class="columns columns-left btn-group pull-left" Tag="form">
+                                <div class="btn-group" Tag="group" aria-label="">
+                                    <button type="button" class="btn btn-sm btn-primary" id="AddUser">添加用户</button>
+                                    <button type="button" class="btn btn-sm btn-danger" disabled="disabled" id="remove" data-method="delete">删除用户</button>
+                                </div>
+                                <div class="btn-group" id="State" data-state="@((int)UserState.Normal)">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="text">正常</span> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a data-state="-1">全部</a></li>
+                                        <li><a data-state="@((int)UserState.Normal)">正常</a></li>
+                                        <li><a data-state="@((int)UserState.Deleted)">已删除</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="UserTable" class="table table-bordered table-striped with-check"
+                               data-toolbar="#toolbar"
+                               data-search="true"
+                               data-show-refresh="true"
+                               data-show-toggle="true"
+                               data-show-columns="true"
+                               data-show-export="true"
+                               data-show-pagination-switch="true"
+                               data-pagination="true"
+                               data-side-pagination="server"
+                                data-url="/Admin/User/List"
+                               data-page-list="[10, 25, 50, 100, ALL]"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal Default -->
+    <div class="modal fade hide" id="UserFormModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">增加用户</h4>
+                </div>
+                <div class="modal-body">
+                    <p>在这里填写栏目信息：</p>
+                        <form id="user-form" class="form-horizontal">
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true)
+                        <div class="control-group">
+                            @Html.LabelFor(model => model.UserName, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextBoxFor(model => model.UserName, new { @class = "span3", placeholder = "请输入用户名" })
+                                @Html.ValidationMessageFor(model => model.UserName)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            @Html.LabelFor(model => model.Password, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextBoxFor(model => model.Password, new { @class = "span3", placeholder = "请输入密码" })
+                                @Html.ValidationMessageFor(model => model.Password)
+                            </div>
+                        </div>
+                        <div class="control-group">
+                            @Html.LabelFor(model => model.Email, new { @class = "control-label" })
+                            <div class="controls">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "span3", placeholder = "请输入邮箱地址" })
+                                @Html.ValidationMessageFor(model => model.Email)
+                        </div>
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.RealName, new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.RealName, new { @class = "span3", placeholder = "请输入真实姓名" })
+                                    @Html.ValidationMessageFor(model => model.RealName)
+                                </div>
+                            </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <input id="UserID" type="hidden">
+                    <input id="method" type="hidden">
+                    <button class="btn btn-success save">提交</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@section scripts{
+    <script src="~/Areas/Admin/js/bootstrap-dialog.min.js"></script>
+    <script src="~/Areas/Admin/js/bootstrap-table.min.js"></script>
+    <script src="~/Areas/Admin/js/jquery.formFill.js"></script>
+    <script src="~/Areas/Admin/js/custom/user.js"></script>
+}

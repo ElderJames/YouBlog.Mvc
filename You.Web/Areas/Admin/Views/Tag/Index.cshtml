@@ -1,0 +1,119 @@
+﻿@using You.Models;
+@model Tag
+@{
+    ViewBag.Title = "标签管理";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+
+    <link href="~/Areas/Admin/css/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/select2.css" rel="stylesheet" />
+}
+
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb"> <a href="index.html" title="回到首页" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+        <h1>标签管理</h1>
+    </div>
+    <!--End-breadcrumbs-->
+    <!--Action boxes-->
+    <div class="container-fluid">
+        <!--End-Action boxes-->
+        <hr>
+        <!--Chart-box-->
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+
+                    <div class="widget-title">
+                        <span class="icon"> <i class="icon-th"></i> </span>
+                        <h5>标签列表</h5>
+                        @*<span class="label label-info">Featured</span>*@
+                    </div>
+                    <div class="widget-content">
+                        <div id="toolbar">
+                            <div class="columns columns-left btn-group pull-left" Tag="form">
+                                <div class="btn-group" Tag="group" aria-label="">
+                                    <button type="button" class="btn btn-sm btn-primary" id="AddTag">添加标签</button>
+                                    <button type="button" class="btn btn-sm btn-danger" disabled="disabled" id="remove" data-method="delete">删除标签</button>
+                                </div>
+                                <div class="btn-group" id="State" data-state="@CommonModelState.Normal">
+                                    <button data-toggle="dropdown" class="btn dropdown-toggle"><span class="text">正常</span> <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a data-state="@((int)ItemState.Nomal)">正常</a></li>
+                                        <li><a data-state="@((int)ItemState.Deleted)">已删除</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <table id="TagTable" class="table table-bordered table-striped with-check"
+                               data-toolbar="#toolbar"
+                               data-search="true"
+                               data-show-refresh="true"
+                               data-show-toggle="true"
+                               data-show-columns="true"
+                               data-show-export="true"
+                               @*data-detail-view="true"*@
+                               @*data-detail-formatter="detailFormatter"*@
+                               data-minimum-count-columns="2"
+                               data-show-pagination-switch="true"
+                               data-pagination="true"
+                               data-side-pagination="server"
+                               data-page-list="[10, 25, 50, 100, ALL]"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Default -->
+<div class="modal fade hide" id="TagFormModal" tabindex="-1" Tag="dialog" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">添加标签</h4>
+            </div>
+            <div class="modal-body">
+                <p>请在这里填写标签信息：</p>
+                @using (Html.BeginForm("Add", "Tag", FormMethod.Post, new { id = "Tag-form", @class = "form-horizontal" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(model => model.Name, new { @class = "span3", placeholder = "请输入标签" ,id="title"})  
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        @Html.LabelFor(model => model.SubTitle, new { @class = "control-label" })
+                        <div class="controls">
+                            @Html.TextBoxFor(model => model.SubTitle, new { @class = "span3", placeholder = "请输入使Url友好的标签别名" ,id="subtitle"})
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <input id="TagID"  type="hidden">
+                <input id="method" type="hidden">
+                <button class="btn btn-success save">添加标签</button>
+                <button type="button" class="btn btn-sm" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Areas/Admin/js/bootstrap-dialog.min.js"></script>
+    <script src="~/Areas/Admin/js/bootstrap-table.min.js"></script>
+    <script src="~/Areas/Admin/js/select2.min.js"></script>
+<script src="~/Areas/Admin/js/jquery.formFill.js"></script>
+<script src="~/Areas/Admin/js/custom/tag.js"></script>
+}

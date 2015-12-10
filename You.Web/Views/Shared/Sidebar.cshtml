@@ -1,0 +1,22 @@
+﻿@model ICollection<You.Models.Category>
+<section id="sidebar">
+    <h2 title="Categories">与你分享</h2>
+    <div class="sb-c">
+        <p class="testimonial">
+
+
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean magna risus, scelerisque vel tempus at, auctor et mauris. Ut risus lorem, tempor ac sollicitudin euismod, ultrices at eros. Vivamus at erat non mauris molestie gravida malesuada non erat.
+            <span>John Doe, John Doe, Inc.</span>
+
+        </p>
+    </div>
+    <h2 title="Categories">栏目</h2>
+    <div class="sb-c">
+        <ul>
+            @foreach (var item in Model)
+            {
+                <li><a href="@Url.Action("Index","Category", new { id=item.CategoryID})">@item.Name</a></li>
+            }
+        </ul>
+    </div>
+</section>

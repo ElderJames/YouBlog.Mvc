@@ -1,0 +1,139 @@
+﻿@using You.Models;
+@model You.Models.CommonModel
+@{
+
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div id="content">
+    <div id="content-header">
+        <div id="breadcrumb"> <a href="index.html" title="Go to Home" class="tip-bottom"><i class="icon-home"></i> 首页</a> <a href="#">添加文章</a> <a href="#" class="current">Validation</a> </div>
+        <h1>@ViewBag.Title</h1>
+    </div>
+    <div class="container-fluid">
+        <hr>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+                    <div class="widget-title">
+                        <span class="icon"> <i class="icon-info-sign"></i> </span>
+                        <h5>@ViewBag.Title</h5>
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form class="form-horizontal" method="post" id="ArticalForm" action="#">
+
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.Title, new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Title, new { @class = "span11", id = "title", placeholder = "请输入文章标题" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.SubTitle, new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.SubTitle, new { @class = "span11", id = "subtitle", placeholder = "请输入使url友好的文章别称" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">类型</label>
+                                <div class="controls">
+                                    <label>
+                                       @Html.CheckBoxFor(model=>model.isPage,new {style="zoom:1.2;" })
+                                        设置为独立页面
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.CategoryID, new { @class = "control-label" })
+                                <div class="controls">
+                                    <input id="Category" class="span11" type="text" placeholder="请选择栏目">
+                                    @Html.HiddenFor(model => model.CategoryID, new { id = "CategoryID" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.Article.Author, new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Article.Author, new { @class = "span11", placeholder = "如果作者不是你，请输入作者" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.Article.Intro, new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Article.Intro, new { @class = "span11", placeholder = "请输入文章摘要，或留空又程序自动截取" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">正文</label>
+                                <div class="controls">
+                                    <div  class="textarea_editor span11">
+                                        @Html.HiddenFor(model=>model.Article.Content,new {id="article-content" })
+                                        <div  id="editor"></div>
+                                       @* @Html.TextAreaFor(model => model.Article.Content, new { id = "editor"})*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.Tags, new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Tags, new { @class = "span11", id = "tags", placeholder = "为提高文章聚合度，请尽量选择已有标签" })
+                                    <input type="hidden" name="addtags" id="addtags">
+                                    <input type="hidden" name="removetags" id="removetags">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.Article.Source, new { @class = "control-label" })
+                                <div class="controls">
+                                    @Html.TextBoxFor(model => model.Article.Source, new { @class = "span11", placeholder = "如果是转载文章，请填入文章来源" })
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-actions">
+                            @Html.HiddenFor(model=>model.ModelID, new { id="ModelID"})
+                            <input type="submit" id="submit" value="提交" class="btn btn-success" data-method="@ViewBag.Method">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade hide" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">选择栏目</h4>
+            </div>
+            <div class="modal-body">
+                <div id="categoryTree"></div>
+            </div>
+            <div class="modal-footer">
+                @*<a class="btn btn-success" href="@Url.Action("Add","Category")" target="_main">添加栏目</a>*@
+                <button data-dismiss="modal" class="btn btn-default" type="button">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section styles{
+@*<link href="~/Areas/Admin/css/uniform.css" rel="stylesheet" />*@
+    <link href="~/Areas/Admin/css/editormd.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/select2.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/bootstrap-treeview.min.css" rel="stylesheet" />
+
+}
+
+@section scripts{
+@*<script src="~/Areas/Admin/js/jquery.uniform.js"></script>
+    <script>$('input[type=checkbox],input[type=radio],input[type=file]').uniform();</script>*@
+    <script src="~/Areas/Admin/js/editormd.min.js"></script>
+    @*<script src="~/Areas/Admin/suMarkdown/lib/highlight/highlight.pack.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>*@
+
+    <script src="~/Areas/Admin/js/bootstrap-treeview.min.js"></script>
+    <script src="~/Areas/Admin/js/select2.min.js"></script>
+    <script src="~/Areas/Admin/js/custom/add.js"></script>
+}

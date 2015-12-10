@@ -1,0 +1,53 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<You.Models.CommonModel>
+
+@{
+    ViewBag.Title = "首页";
+    MarkdownSharp.Markdown markdown = new MarkdownSharp.Markdown();
+}
+
+<section id="leftcontent">
+    <header id="pageheader">
+        <h1>小悠 // 前端</h1>
+        <h2 id="introduction">
+            <span>Hello 大家好,</span>
+            这里是我的个人主页，用简单的MarkDown语法来书写我不简单的生活。
+        </h2>
+    </header>
+    <section id="leftcontents">
+        <header id="mainheading">
+            <h2>本栏目的文章</h2>
+        </header>
+        <div id="contentwrap">
+            @foreach (var item in Model)
+            {
+                <section class="postinfo">
+                    <p class="postdata postdate"><time datetime="@item.ReleaseDate">@item.ReleaseDate.ToLongDateString()</time></p>
+                    <p class="postdata">By  @item.Article.Author</p>
+                    @if (!string.IsNullOrEmpty(item.Tags))
+                    {
+                        foreach (var t in item.Tag)
+                        {
+                         <p class="posttag"><a href="@Url.Action("Index", "Tag", new { id = t.Id })">@t.Name</a></p>
+                        }
+                    }
+                </section>
+                <article class="postpre">
+                    <header>
+                        <h3>@item.Title</h3>
+                    </header>
+
+                    <p>@Html.Raw(markdown.Transform(item.Article.Content))</p>
+                    <a href="@Url.Action("Index","Article", new {id= item.ModelID})" class="readmore">更多</a>
+                 </article>
+                <div class="postbtm"></div>
+            }
+            <div class="wp-pagenavi">
+                @Html.PagedListPager(Model, page => Url.Action("Index", new { page }))  
+            </div>
+        </div>
+    </section>
+
+</section>
+ @Html.Action("Sidebar","Home")
+

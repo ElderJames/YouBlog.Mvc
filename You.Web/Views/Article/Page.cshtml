@@ -1,0 +1,25 @@
+﻿@model You.Models.CommonModel
+@{
+    ViewBag.Title = Model.Title;
+    MarkdownSharp.Markdown markdown = new MarkdownSharp.Markdown();
+}}
+
+
+<section id="leftcontent" class="normalpage">
+    <header id="pageheader">
+        <h1>@Model.Title</h1>
+        <h2 id="introduction">
+            @Model.Article.Intro
+        </h2>
+    </header>
+    <section id="leftcontents">
+       
+        <div id="contentwrap">
+            @Html.Raw(markdown.Transform(Model.Article.Content))
+
+            <div class="postbtm"></div>
+        </div>
+    </section>
+
+</section>
+@Html.Action("Sidebar", "Home")

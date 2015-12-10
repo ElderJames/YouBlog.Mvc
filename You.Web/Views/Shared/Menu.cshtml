@@ -1,0 +1,15 @@
+﻿@model ICollection<You.Models.Menu>
+
+<ul>
+    @foreach (var item in Model)
+    {
+        if ((Request.RawUrl.ToString() == "/" && string.IsNullOrEmpty(item.Url) ) || (!string.IsNullOrEmpty(item.Url)  && Request.RawUrl.ToString().Contains(item.Url)))
+        {
+        <li class="active"><a href="/@item.Url">@item.Name</a></li>
+        }
+        else
+        {
+        <li><a href="/@item.Url">@item.Name</a></li>
+        }
+    }
+    </ul>
