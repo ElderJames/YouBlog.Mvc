@@ -7,7 +7,7 @@ using You.Service;
 namespace You.Web.Areas.Admin.Controllers
 {
     [AdminAuthorize]
-    public class HomeController : Controller
+    public class HomeController : Common.Controller
     {
         //UserService userService = new UserService();
         //CommonModelService commonModelService = new CommonModelService();

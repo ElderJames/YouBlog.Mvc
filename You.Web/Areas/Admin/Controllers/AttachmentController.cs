@@ -23,7 +23,7 @@ namespace You.Web.Areas.Admin.Controllers
     /// </remarks>
     /// </summary>
     [AdminAuthorize]
-    public class AttachmentController : Controller
+    public class AttachmentController : Common.Controller
     {
         private AttachmentService attachmentService;
         public UploadConfig UploadConfig { get; private set; }
@@ -195,8 +195,8 @@ namespace You.Web.Areas.Admin.Controllers
                     attachmentService.Delete(_att, false);
                 }
             }
-            if (attachmentService.Save() > 0) return new Success();
-            else return new Fail();
+            if (attachmentService.Save() > 0) return Success();
+            else return Fail();
         }
 
         //public ActionResult Upload()
@@ -354,7 +354,7 @@ namespace You.Web.Areas.Admin.Controllers
 
         private JsonResult WriteResult()
         {
-            return new Json(new
+            return Json(new
             {
                 state = GetStateMessage(Result.State),
                 url = Result.Url,
@@ -408,7 +408,7 @@ namespace You.Web.Areas.Admin.Controllers
                   UploadDate = att.UploadDate,
                   ArticleCount = att.CommonModels.Count
               }).ToList();
-            return new Json(new { total = total, rows = _att });
+            return Json(new { total = total, rows = _att });
         }
     }
 }

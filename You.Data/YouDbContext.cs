@@ -16,7 +16,11 @@ namespace You.Data
         public DbSet<Menu> Menus { get; set; }
         #endregion
 
-     
+        #region 系统设置
+
+        public DbSet<Theme> Themes { get; set; }
+
+        #endregion
 
         #region 用户
         public DbSet<User> User { get; set; }

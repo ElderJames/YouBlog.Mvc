@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace You.Web
 {
-    public class Fail : JsonResult
+    public class Fail : System.Web.Mvc.JsonResult
     {
         public Fail(object data=null)
         {
@@ -25,7 +25,7 @@ namespace You.Web
             httpContext.Response.Write(JsonConvert.SerializeObject(new { result = false, error = Data }));//Data 是服务器返回的数据     
         }
     }
-    public class Success : JsonResult
+    public class Success : System.Web.Mvc.JsonResult
     {
         public Success(object data = null)
         {
@@ -57,7 +57,7 @@ namespace You.Web
             Response.End();
         }
     }
-    public class Json : JsonResult
+    public class Json : System.Web.Mvc.JsonResult
     {
         public Json(object data=null)
         {

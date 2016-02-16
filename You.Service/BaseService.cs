@@ -9,9 +9,6 @@ namespace You.Service
 {
     /// <summary>
     /// 业务逻辑基类
-    /// <remarks>
-    /// 创建：2014.12.13
-    /// </remarks>
     /// </summary>
     public class BaseService<T> where T : class
     {

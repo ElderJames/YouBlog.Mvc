@@ -94,8 +94,6 @@ namespace You.Web.Areas.Admin.Controllers
         //    }
         //    return View(register);
         //}
-        #region 属性
-        private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }
-        #endregion
+
     }
 }

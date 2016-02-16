@@ -13,7 +13,7 @@ using You.Core;
 namespace You.Web.Areas.Admin.Controllers
 {
     [AdminAuthorize]
-    public class MessageController : Controller
+    public class MessageController : Common.Controller
     {
         MessageService messageService = new MessageService();
 
@@ -43,9 +43,9 @@ namespace You.Web.Areas.Admin.Controllers
                 msg.ReplyTime = DateTime.Now;
                 msg.State = MessageState.Replyed;
                 messageService.Update(msg);
-                return new Success();
+                return Success();
             }
-            return new Fail();
+            return Fail();
         }
 
         public ActionResult Delete(int[] Id)
@@ -59,8 +59,8 @@ namespace You.Web.Areas.Admin.Controllers
                     messageService.Update(_msg, false);
                 }
             }
-            if (messageService.Save() > 0) return new Success();
-            else return new Fail();
+            if (messageService.Save() > 0) return Success();
+            else return Fail();
         }
 
         public ActionResult Recovery(int[] Id)
@@ -74,8 +74,8 @@ namespace You.Web.Areas.Admin.Controllers
                     messageService.Update(_msg, false);
                 }
             }
-            if (messageService.Save() > 0) return new Success();
-            else return new Fail();
+            if (messageService.Save() > 0) return Success();
+            else return Fail();
         }
 
         [NonAction]

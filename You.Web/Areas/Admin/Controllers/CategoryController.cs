@@ -10,7 +10,7 @@ using You.Data.Types;
 namespace You.Web.Areas.Admin.Controllers
 {
     [AdminAuthorize]
-    public class CategoryController : Controller
+    public class CategoryController : Common.Controller
     {
         protected CategoryService categoryService;
         protected CommonModelService commonModelService;
@@ -25,7 +25,7 @@ namespace You.Web.Areas.Admin.Controllers
         public ActionResult Tree(CategoryType? type)
         {
             var _tree = categoryService.FindTree(type);
-            return new Json(_tree);
+            return Json(_tree);
         }
 
         public ActionResult List(CategoryType? type)
@@ -33,11 +33,11 @@ namespace You.Web.Areas.Admin.Controllers
             try
             {
                 List<Category> list = categoryService.FindList(type);
-                return new Json(list);
+                return Json(list);
             }
             catch
             {
-                return new Json(new { });
+                return Json(new { });
             }
         }
 
@@ -47,9 +47,9 @@ namespace You.Web.Areas.Admin.Controllers
             {
                 category=categoryService.Add(category);
                 if(category.CategoryID>0)
-                    return new Json(new { result = true, cat = category });
+                    return Json(new { result = true, cat = category });
             }
-            return new Fail();
+            return Fail();
         }
 
         public ActionResult Edit(int id, FormCollection collection)
@@ -58,9 +58,9 @@ namespace You.Web.Areas.Admin.Controllers
             {
                 Category _category = categoryService.Find(id);
                 TryUpdateModel(_category, "", collection.AllKeys, new string[] { "CategoryID", "ParentPath", "CreateTime", "State", "Type" });
-                if (categoryService.Update(_category)) return new Success();
+                if (categoryService.Update(_category)) return Success();
             }
-            return new Fail();
+            return Fail();
         }
 
         //public ActionResult Delete(int id,int removeTo=0)
@@ -87,10 +87,10 @@ namespace You.Web.Areas.Admin.Controllers
                     _category.State = ItemState.Deleted;
                     categoryService.Update(_category, false);
                 }
-                else return new Fail("未找到此菜单项");
+                else return Fail("未找到此菜单项");
             }
-            if (categoryService.Save() > 0) return new Success();
-            else return new Fail();
+            if (categoryService.Save() > 0) return Success();
+            else return Fail();
         }
         [HttpPost]
         public ActionResult Recovery(int[] CategoryID)
@@ -104,8 +104,8 @@ namespace You.Web.Areas.Admin.Controllers
                     categoryService.Update(_category, false);
                 }
             }
-            if (categoryService.Save() == CategoryID.Count()) return new Success();
-            return new Fail("未找到此菜单项");
+            if (categoryService.Save() == CategoryID.Count()) return Success();
+            return Fail("未找到此菜单项");
         }
     }
 }

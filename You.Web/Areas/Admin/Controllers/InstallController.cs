@@ -7,7 +7,7 @@ using You.Service;
 
 namespace You.Web.Areas.Admin.Controllers
 {
-    public class InstallController : Controller
+    public class InstallController : Common.Controller
     {
         UserService userService = new UserService();
         CommonModelService commonModelService = new CommonModelService();
@@ -27,7 +27,7 @@ namespace You.Web.Areas.Admin.Controllers
           
 
 
-            return new Success(_user);
+            return Success(_user);
         }
     }
 }

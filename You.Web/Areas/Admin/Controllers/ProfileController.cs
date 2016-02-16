@@ -12,7 +12,7 @@ using You.Web.Areas.Admin.Models;
 namespace You.Web.Areas.Admin.Controllers
 {
     [AdminAuthorize]
-    public class ProfileController : Controller
+    public class ProfileController : Common.Controller
     {
         UserService userService;
         private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }

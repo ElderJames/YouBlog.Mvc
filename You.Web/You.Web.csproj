@@ -194,6 +194,7 @@
     <Compile Include="Areas\Admin\Controllers\MessageController.cs" />
     <Compile Include="Areas\Admin\Controllers\ProfileController.cs" />
     <Compile Include="Areas\Admin\Controllers\TagController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ThemeController.cs" />
     <Compile Include="Areas\Admin\Controllers\UserController.cs" />
     <Compile Include="Areas\Admin\Models\ArticleViewModel.cs" />
     <Compile Include="Areas\Admin\Models\AttachmentManagerViewModel.cs" />
@@ -212,6 +213,7 @@
     <Compile Include="Areas\Admin\UEditor_Code\PathFormater.cs" />
     <Compile Include="Areas\Admin\UEditor_Code\UploadHandler.cs" />
     <Compile Include="Areas\Admin\YouAreaRegistration.cs" />
+    <Compile Include="Common\Controller.cs" />
     <Compile Include="Common\JsonResult.cs" />
     <Compile Include="Common\ModelStateError.cs" />
     <Compile Include="Config\ArticleUrlProvider.cs" />
@@ -222,6 +224,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\TagController.cs" />
+    <Compile Include="Controllers\ThemeController.cs" />
+    <Compile Include="Filter\TemplateRelevantAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -844,7 +848,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Install\" />
+    <Folder Include="Areas\Admin\Views\Theme\" />
+    <Folder Include="Content\Themes\Default\" />
+    <Folder Include="Content\Themes\NewYear\" />
     <Folder Include="Views\Page\" />
+    <Folder Include="Views\Theme\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

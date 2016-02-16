@@ -17,7 +17,7 @@ namespace You.Web.Areas.Admin.Controllers
 {
 
     [AdminAuthorize]
-    public class ArticleController : Controller
+    public class ArticleController : Common.Controller
     {
         private ArticleService articleService;
         private CommonModelService commonModelService;
@@ -132,12 +132,12 @@ namespace You.Web.Areas.Admin.Controllers
             foreach (int mid in ModelID)
             {
                 var _commonModel = commonModelService.Find(mid);
-                if (_commonModel == null) return new Fail("查无此文章");
-                if (_commonModel.State == CommonModelState.UnDelete) return new Fail("《"+_commonModel.Title+"》是固定文章，不能删除！");
+                if (_commonModel == null) return Fail("查无此文章");
+                if (_commonModel.State == CommonModelState.UnDelete) return  Fail("《"+_commonModel.Title+"》是固定文章，不能删除！");
                 _commonModel.State = CommonModelState.Deleted;
             }
-            if (commonModelService.Save() > 0) return new Success();
-            else return new Fail();
+            if (commonModelService.Save() > 0) return Success();
+            else return Fail();
         }
         
         public ActionResult RealDelete(int[] ModelID)
@@ -145,8 +145,8 @@ namespace You.Web.Areas.Admin.Controllers
             foreach (int mid in ModelID)
             {
                 var _commonModel = commonModelService.Find(mid);
-                if (_commonModel == null) return new Fail("查无此文章");
-                if (_commonModel.State == CommonModelState.UnDelete) return new Fail("《" + _commonModel.Title + "》是固定文章，不能删除！");
+                if (_commonModel == null) return Fail("查无此文章");
+                if (_commonModel.State == CommonModelState.UnDelete) return Fail("《" + _commonModel.Title + "》是固定文章，不能删除！");
                 commonModelService.Delete(_commonModel, false);
             }
             //附件处理
@@ -165,8 +165,8 @@ namespace You.Web.Areas.Admin.Controllers
                     _attachmentService.Delete(_att,false);
                 }
             }
-            if (commonModelService.Save() > 0) return new Success();
-            else return new Fail();
+            if (commonModelService.Save() > 0) return Success();
+            else return Fail();
         }
 
         /// <summary>
@@ -179,11 +179,11 @@ namespace You.Web.Areas.Admin.Controllers
             foreach (int mid in ModelID)
             {
                 var _commonModel = commonModelService.Find(mid);
-                if (_commonModel == null) return new Fail("查无此文章");
+                if (_commonModel == null) return Fail("查无此文章");
                 _commonModel.State = CommonModelState.Normal;
             }
-            if (commonModelService.Save() > 0) return new Success();
-            else return new Fail();
+            if (commonModelService.Save() > 0) return Success();
+            else return Fail();
         }
 
         /// <summary>
@@ -254,7 +254,7 @@ namespace You.Web.Areas.Admin.Controllers
                         }
                     }
                     _attachmentService.Save();
-                    return new Success();
+                    return Success();
                 }
             }
             return View(_commonModel);
@@ -303,7 +303,7 @@ namespace You.Web.Areas.Admin.Controllers
                     ReleaseDate = cm.ReleaseDate,
                     State = cm.State
                 });
-            return new Json(new { total = _total, rows = _rows.ToList() });
+            return Json(new { total = _total, rows = _rows.ToList() });
         }
 
         public ActionResult MyList()
@@ -364,15 +364,15 @@ namespace You.Web.Areas.Admin.Controllers
                                         data.Add(s);
                                     }
                             }
-                        if (data.Count > 0) return new Success(data);
+                        if (data.Count > 0) return Success(data);
                     }
                 }
             }
             catch
             {
-                return new Fail();
+                return Fail();
             }
-            return new Fail();
+            return Fail();
         }
     }
 }

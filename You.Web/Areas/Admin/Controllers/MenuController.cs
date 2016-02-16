@@ -9,7 +9,7 @@ using You.Service;
 namespace You.Web.Areas.Admin.Controllers
 {
     [AdminAuthorize]
-    public class MenuController : Controller
+    public class MenuController : Common.Controller
     {
         // GET: Admin/Menu
         MenuService menuService;
@@ -23,11 +23,11 @@ namespace You.Web.Areas.Admin.Controllers
 
         public ActionResult Add(Menu menu) 
         {
-            if (menuService.Exist(m => m.Name == menu.Name)) return new Fail("此菜单名已存在");
+            if (menuService.Exist(m => m.Name == menu.Name)) return Fail("此菜单名已存在");
             menu = menuService.Add(menu);
             if (menu.Id>0)
-              return new Success();
-            return new Fail();
+              return Success();
+            return Fail();
         }
 
         public ActionResult List()
@@ -46,15 +46,15 @@ namespace You.Web.Areas.Admin.Controllers
         public ActionResult Delete(int id)
         {
             var _menu = menuService.Find(id);
-            if (menuService.Delete(_menu)) return new Success();
-            else return new Fail();
+            if (menuService.Delete(_menu)) return Success();
+            else return Fail();
         }
 
         public ActionResult Recovery(int id)
         {
             var _menu = menuService.Find(id);
-            if (menuService.Delete(_menu)) return new Success();
-            else return new Fail();
+            if (menuService.Delete(_menu)) return Success();
+            else return Fail();
         }
     }
 }
