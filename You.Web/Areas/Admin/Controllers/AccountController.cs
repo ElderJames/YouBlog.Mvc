@@ -9,7 +9,7 @@ using You.Web.Areas.Admin.Models;
 namespace You.Web.Areas.Admin.Controllers
 {
 
-    public class AccountController : Controller
+    public class AccountController : Common.Controller
     {
         UserService userService = new UserService();
         // GET: Admin/Acount

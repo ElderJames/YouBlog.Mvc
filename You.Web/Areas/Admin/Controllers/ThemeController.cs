@@ -5,36 +5,61 @@ using System.Linq;
 using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using You.Models;
 using You.Service;
 
 namespace You.Web.Areas.Admin.Controllers
 {
+    [AdminAuthorize]
     public class ThemeController : Common.Controller
     {
         ThemeService themeService = null;
 
         public ThemeController()
         {
-            themeService = new ThemeService(Request);
+            themeService = new ThemeService();
         }
         //
         // GET: /Admin/Theme/
         public ActionResult Index()
         {
-            ViewBag.ThemeList = themeService.GetThemes();
-            var _theme = themeService.FindbyUser(Convert.ToInt32(AuthenticationManager.User.FindFirst(ClaimTypes.Sid).ToString()));
-            if (_theme == null) _theme.Name = "Default";
+            var ThemeList = new ThemeService().GetThemes();
+            TempData["Theme"] = ThemeList;
+            ViewBag.ThemeList = ThemeList;
+            //Theme _theme = null;
+            var _theme = themeService.FindbyUser(Convert.ToInt32(AuthenticationManager.User.FindFirst(ClaimTypes.Sid).Value));
+            if (_theme == null) _theme = new Theme { Name = "Default" };
+
             return View(_theme);
         }
 
-        public ActionResult Update(string name)
+        public ActionResult Update(int id)
         {
-            var _theme = themeService.FindbyUser(Convert.ToInt32(AuthenticationManager.User.FindFirst(ClaimTypes.Sid).ToString()));
+            int uid = Convert.ToInt32(AuthenticationManager.User.FindFirst(ClaimTypes.Sid).Value);
+            var _theme = themeService.FindbyUser(uid);
+            var ThemeList = TempData["Theme"] as ICollection<Theme>;
+            if (ThemeList == null) return Fail();
+            var theme = ThemeList.FirstOrDefault(t => t.Id == id);
+
             if (_theme != null)
             {
-
+                if (_theme.Id != id)
+                {
+                    _theme.Name = theme.Name;
+                    _theme.Directory = theme.Directory;
+                    _theme.SetTime = DateTime.Now;
+                    if (themeService.Update(theme)) return Success();
+                }
+                else return Success("没有修改");
             }
-            return Success();
+            
+            theme.Id = 0;
+            theme.SetTime = DateTime.Now;
+            theme.UserID = uid;
+            theme = themeService.Add(theme);
+            if (theme.Id > 0) return Success();
+
+            return Fail();
         }
     }
 }
