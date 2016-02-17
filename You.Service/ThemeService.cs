@@ -52,7 +52,7 @@ namespace You.Service
                     {
                         Id = i,
                         Name = config["Name"].ToString(),
-                        Directory = TemplateDirectoryName + themePaths[i]
+                        Directory = themePaths[i]
                     });
                 }
               

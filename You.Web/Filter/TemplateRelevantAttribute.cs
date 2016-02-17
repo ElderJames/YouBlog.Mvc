@@ -18,20 +18,18 @@ namespace You.Web.Filter
             if (viewResult != null)
             {
                 var currentUserTheme = this.GetCurrentUserTheme();
-                //var template = string.IsNullOrEmpty(currentUserTemplate) ? TemplateService.DefaultTemplateName : currentUserTemplate;
+                var template = string.IsNullOrEmpty(currentUserTheme) ? ThemeService.DefaultTemplateName : currentUserTheme;
                 var controller = filterContext.RequestContext.RouteData.Values["Controller"].ToString();
                 var action = filterContext.RequestContext.RouteData.Values["Action"].ToString();
 
                 if (string.IsNullOrWhiteSpace(viewResult.ViewName))
                 {
                     viewResult.ViewName = string.Format(
-                         "~/Views/{0}/{1}/{2}/{3}.{4}",
-                        //TemplateService.TemplateDirectoryName,
-                        // template,
+                         "~/Content/Themes/{0}/{1}/{2}.{3}",
+                         template,
                          controller,
                          action,
                          "cshtml"
-                         //TemplateService.TemplateFileExtension
                          );
 
                     return;
@@ -41,10 +39,10 @@ namespace You.Web.Filter
             base.OnResultExecuting(filterContext);
         }
 
-        private Theme GetCurrentUserTheme()
+        private string GetCurrentUserTheme()
         {
-            return ThemeService.Current.FindbyUser(Convert.ToInt32(HttpContext.Current.GetOwinContext().Authentication.User.FindFirst(ClaimTypes.Sid).Value));
-        
+            var _theme= ThemeService.Current.FindbyUser(Convert.ToInt32(HttpContext.Current.GetOwinContext().Authentication.User.FindFirst(ClaimTypes.Sid).Value));
+            return _theme.Directory;
         }
     }
 }
