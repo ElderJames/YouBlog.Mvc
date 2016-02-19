@@ -1,0 +1,150 @@
+﻿@model You.Models.CommonModel
+@{ 
+    ViewBag.Title = Model.Title;
+    MarkdownSharp.Markdown markdown = new MarkdownSharp.Markdown();
+}}
+
+
+<section id="leftcontent" class="normalpage">
+
+    <section id="leftcontents">
+        <header id="mainheading">
+            <h2>@Model.Title </h2>
+        </header>
+        <div id="contentwrap">
+            <section class="postinfo">
+                <p class="postdata postdate"><time datetime="@Model.ReleaseDate">@Model.ReleaseDate.ToLongDateString()</time></p>
+                <P class="postdata">By @Model.Article.Author</P>
+            </section>
+            <article class="postpre">
+                <header>
+                    <h3>@Model.Title</h3>
+                </header>
+                @Html.Raw(markdown.Transform(Model.Article.Content))
+            </article>
+
+            <div class="postbtm"></div>
+            <!--Comments here
+            -->
+            <div id="commentstemplate">
+
+                <!-- Comment Insert -->
+                <!-- Comment Insert -->
+
+
+                <div id="comments" class="comments-list">
+
+                    <h3>One Response to “Launching CSS Heaven.”</h3>
+
+
+
+                    <div id="comment-2" class="entry alt">
+                        <div class="commentheader">
+                            <p class="avt"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=45" class="avatar avatar-45 photo avatar-default" width="45" height="45"></p>
+
+
+                            <p class="name">Roshan Says</p>
+                            <p class="date">August 4th, 2010 at 10:15 pm <a class="comment-edit-link" href="http://cssheaven.org/wp-admin/comment.php?action=editcomment&amp;c=2" title="Edit comment">e</a> </p>
+                        </div>
+                        <div class="con">
+                            <p>testing comment</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="comment-2" class="entry alt">
+                        <div class="commentheader">
+                            <p class="avt"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=45" class="avatar avatar-45 photo avatar-default" width="45" height="45"></p>
+
+
+                            <p class="name">Roshan Says</p>
+                            <p class="date">August 4th, 2010 at 10:15 pm <a class="comment-edit-link" href="http://cssheaven.org/wp-admin/comment.php?action=editcomment&amp;c=2" title="Edit comment">e</a> </p>
+                        </div>
+                        <div class="con">
+                            <p>testing comment</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="comment-2" class="entry alt">
+                        <div class="commentheader">
+                            <p class="avt"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=45" class="avatar avatar-45 photo avatar-default" width="45" height="45"></p>
+
+
+                            <p class="name">Roshan Says</p>
+                            <p class="date">August 4th, 2010 at 10:15 pm <a class="comment-edit-link" href="http://cssheaven.org/wp-admin/comment.php?action=editcomment&amp;c=2" title="Edit comment">e</a> </p>
+                        </div>
+                        <div class="con">
+                            <p>testing comment</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="comment-2" class="entry alt">
+                        <div class="commentheader">
+                            <p class="avt"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=45" class="avatar avatar-45 photo avatar-default" width="45" height="45"></p>
+
+
+                            <p class="name">Roshan Says</p>
+                            <p class="date">August 4th, 2010 at 10:15 pm <a class="comment-edit-link" href="http://cssheaven.org/wp-admin/comment.php?action=editcomment&amp;c=2" title="Edit comment">e</a> </p>
+                        </div>
+                        <div class="con">
+                            <p>testing comment</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                    <div id="comment-2" class="entry alt">
+                        <div class="commentheader">
+                            <p class="avt"><img alt="" src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=45" class="avatar avatar-45 photo avatar-default" width="45" height="45"></p>
+
+
+                            <p class="name">Roshan Says</p>
+                            <p class="date">August 4th, 2010 at 10:15 pm <a class="comment-edit-link" href="http://cssheaven.org/wp-admin/comment.php?action=editcomment&amp;c=2" title="Edit comment">e</a> </p>
+                        </div>
+                        <div class="con">
+                            <p>testing comment</p>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+
+                </div>
+
+
+                <div class="comments-form">
+                    <h3 id="respond">Add A Comment</h3>
+
+                    <form action="http://cssheaven.org/wp-comments-post.php" method="post" id="commentform">
+
+
+                        <p>Logged in as <a href="http://cssheaven.org/wp-admin/profile.php">Roshan</a>. <a href="http://cssheaven.org/wp-login.php?action=logout" title="Log out of this account">Logout »</a></p>
+
+
+                        <div><p><small><strong>XHTML:</strong> You can use these tags: &lt;a href="" title=""&gt; &lt;abbr title=""&gt; &lt;acronym title=""&gt; &lt;b&gt; &lt;blockquote cite=""&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=""&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=""&gt; &lt;strike&gt; &lt;strong&gt; </small></p></div>
+
+
+                        <p><textarea name="comment" id="comment" cols="50" rows="10" tabindex="4"></textarea></p>
+                        <p> <input name="submit" id="submit" tabindex="5" value="Submit Comment" src="http://cssheaven.org/wp-content/themes/cssheaven2/images/addcomment.jpg" class="button" type="image"></p>
+                        <input name="comment_post_ID" value="134" type="hidden">
+                        <input id="_wp_unfiltered_html_comment" name="_wp_unfiltered_html_comment" value="ae4747e828" type="hidden">
+                    </form>
+
+
+
+                </div>
+
+
+
+                <!--Comment Insert-->
+                <div class="clear"></div>
+
+            </div>
+
+
+
+
+        </div>
+    </section>
+
+</section>
+@Html.Action("Sidebar", "Home")

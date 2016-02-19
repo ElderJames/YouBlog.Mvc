@@ -25,7 +25,7 @@ namespace You.Web.Filter
                 if (string.IsNullOrWhiteSpace(viewResult.ViewName))
                 {
                     viewResult.ViewName = string.Format(
-                         "~/Content/Themes/{0}/{1}/{2}.{3}",
+                         "~/Content/Themes/{0}/Views/{1}/{2}.{3}",
                          template,
                          controller,
                          action,

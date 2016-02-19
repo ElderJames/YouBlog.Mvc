@@ -183,6 +183,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\ThemeManager.cs" />
+    <Compile Include="App_Start\ThemeViewEngine.cs" />
     <Compile Include="Areas\Admin\Config\AdminAuthorizeAttribute.cs" />
     <Compile Include="Areas\Admin\Config\ModelStateExcludeAttribute.cs" />
     <Compile Include="Areas\Admin\Config\Startup.cs" />
@@ -811,8 +813,21 @@
     <Content Include="Areas\Admin\js\lib\codemirror\LICENSE" />
     <Content Include="Areas\Admin\js\lib\codemirror\package.json" />
     <Content Include="Areas\Admin\js\lib\codemirror\README.md" />
-    <Content Include="Content\Themes\Default\info.json" />
-    <Content Include="Content\Themes\NewYear\info.json" />
+    <Content Include="Themes\NewYear\info.json" />
+    <Content Include="Themes\Default\info.json" />
+    <Content Include="Themes\Default\Views\Article\Article.cshtml" />
+    <Content Include="Themes\Default\Views\Article\Page.cshtml" />
+    <Content Include="Themes\Default\Views\Category\Index.cshtml" />
+    <Content Include="Themes\Default\Views\Shared\Error.cshtml" />
+    <Content Include="Themes\Default\Views\Shared\Lockout.cshtml" />
+    <Content Include="Themes\Default\Views\Shared\Menu.cshtml" />
+    <Content Include="Themes\Default\Views\Shared\Sidebar.cshtml" />
+    <Content Include="Themes\Default\Views\Shared\_Layout.cshtml" />
+    <Content Include="Themes\Default\Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Themes\Default\Views\Tag\Index.cshtml" />
+    <Content Include="Themes\Web.config" />
+    <Content Include="Themes\Default\Views\_ViewStart.cshtml" />
+    <Content Include="Themes\Default\Views\Home\Index.cshtml" />
     <None Include="Properties\PublishProfiles\YouBlog.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\html5.js" />
@@ -853,14 +868,13 @@
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Install\" />
     <Folder Include="Areas\Admin\Views\Theme\" />
-    <Folder Include="Content\Themes\Default\Article\" />
-    <Folder Include="Content\Themes\Default\Category\" />
-    <Folder Include="Content\Themes\Default\Home\" />
-    <Folder Include="Content\Themes\Default\Profile\" />
-    <Folder Include="Content\Themes\NewYear\Article\" />
-    <Folder Include="Content\Themes\NewYear\Category\" />
-    <Folder Include="Content\Themes\NewYear\Home\" />
-    <Folder Include="Content\Themes\NewYear\Profile\" />
+    <Folder Include="Themes\Default\Content\" />
+    <Folder Include="Themes\Default\Views\Page\" />
+    <Folder Include="Themes\Default\Views\Profile\" />
+    <Folder Include="Themes\NewYear\Article\" />
+    <Folder Include="Themes\NewYear\Category\" />
+    <Folder Include="Themes\NewYear\Home\" />
+    <Folder Include="Themes\NewYear\Profile\" />
     <Folder Include="Views\Page\" />
     <Folder Include="Views\Theme\" />
   </ItemGroup>

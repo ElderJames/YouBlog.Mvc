@@ -1,0 +1,68 @@
+﻿<!doctype html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - You</title>
+    @Styles.Render("/Content/style.css");
+
+    <!--[if IE 6]>
+    <script type="text/ecmascript" src="/Scripts/js/html5.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+    <div id="wrap">
+        <header id="mainheader">
+            <h1>小悠 <span>小悠</span></h1>
+            <p class="description">我的世界七彩缤纷</p>
+        </header>
+        <nav id="topnav">
+        @Html.Action("Menu","Home")
+
+        </nav>
+        <div id="maincontent">
+            @RenderBody()
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div id="bottom">
+        <div id="btmwrap">
+            <section id="briefbio">
+                <h2>我是谁 ?</h2>
+                <p>我叫小悠，来自山西，现在是广东海洋大学计算机科学与技术专业的学生。</p>
+            </section>
+            <section id="latestproject">
+
+
+                <h2>这里放张最喜欢的照片吧</h2>
+                <div class="portfoliopre">
+                    <div class="pf-thumb">
+                        <img src="images/portfoliothumb.jpg" width="245" height="125" alt="portfolio" />
+                    </div>
+                    <div class="pf-txt">
+                        <h3>CSSHeaven.org</h3>
+                        <p>CSS heaven a pet project of mine. This website was designed to provide free and opensource  css templates</p>
+                    </div>
+
+                    <div class="clear"></div>
+
+                </div>
+
+            </section>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+    <footer>
+        <p>2010 &copy; You| All Rights Reserved|
+
+    </footer>
+
+    @Scripts.Render("~/bundles/jquery")
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>
