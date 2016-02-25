@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 using System.Web;
 using You.Models;
 using Newtonsoft.Json.Linq;
+using System.Runtime.Remoting.Messaging;
 
 namespace You.Service
 {
     public class ThemeService : BaseService<Theme>
     {
-        public static ThemeService themeService=null;
         //string[] m_subKeleyiFolder = Directory.GetDirectories(System.Web.Server.MapPath("/hvtimg\\"));
 
         //  private static readonly EmptyTemplateService _DefaultCommandService = new EmptyTemplateService();
@@ -64,7 +64,9 @@ namespace You.Service
 
         public Theme FindbyUser(int uid)
         {
-            return Find(t => t.UserID == uid);
+            var _theme=Find(t => t.UserID == uid);
+
+            return _theme;
         }
 
         /// <summary>
@@ -104,7 +106,13 @@ namespace You.Service
         {
             get
             {
-                if (themeService == null) themeService = new ThemeService();
+                var themeService = CallContext.GetData("Theme") as ThemeService;
+
+                if (themeService == null)
+                {
+                    themeService = new ThemeService();
+                    CallContext.SetData("Theme", themeService);
+                }
                 return themeService;
             }
         }

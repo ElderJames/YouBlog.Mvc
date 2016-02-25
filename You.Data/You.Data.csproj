@@ -68,6 +68,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ThemeFactory.cs" />
     <Compile Include="Types\OrderType.cs" />
     <Compile Include="YouDbContext.cs" />
   </ItemGroup>

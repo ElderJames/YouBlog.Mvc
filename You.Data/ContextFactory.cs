@@ -4,9 +4,6 @@ namespace You.Data
 {
     /// <summary>
     /// 上下文简单工厂
-    /// <remarks>
-    /// 创建：2014.02.05
-    /// </remarks>
     /// </summary>
     public class ContextFactory
     {
@@ -24,16 +21,5 @@ namespace You.Data
             }
             return _nContext;
         }
-
-        //public static MyDbContextInitializer GetCurrentContext()
-        //{
-        //    MyDbContextInitializer _nContext = CallContext.GetData("YouContext") as MyDbContextInitializer;
-        //    if (_nContext == null)
-        //    {
-        //        _nContext = new MyDbContextInitializer();
-        //        CallContext.SetData("YouContext", _nContext);
-        //    }
-        //    return _nContext;
-        //}
     }
 }
