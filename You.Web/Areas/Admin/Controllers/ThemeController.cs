@@ -27,7 +27,7 @@ namespace You.Web.Areas.Admin.Controllers
             TempData["Theme"] = ThemeList;
             ViewBag.ThemeList = ThemeList;
             //Theme _theme = null;
-            var _theme = themeService.FindbyUser(Convert.ToInt32(AuthenticationManager.User.FindFirst(ClaimTypes.Sid).Value));
+            var _theme = themeService.FindbyUser(Convert.ToInt32(User.FindFirst(ClaimTypes.Sid).Value));
             if (_theme == null) _theme = new Theme { Name = "Default" };
 
             return View(_theme);
