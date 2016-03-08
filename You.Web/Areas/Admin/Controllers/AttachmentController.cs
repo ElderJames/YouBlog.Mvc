@@ -22,7 +22,7 @@ namespace You.Web.Areas.Admin.Controllers
     /// 创建：2014.03.05
     /// </remarks>
     /// </summary>
-    [AdminAuthorize]
+    [Authorize]
     public class AttachmentController : Common.Controller
     {
         private AttachmentService attachmentService;

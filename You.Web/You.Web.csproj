@@ -228,7 +228,6 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PageController.cs" />
     <Compile Include="Controllers\TagController.cs" />
-    <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Filter\TemplateRelevantAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -773,7 +772,6 @@
     <Content Include="Content\fontface\quigleyw-webfont.eot" />
     <Content Include="Content\fontface\quigleyw-webfont.otf" />
     <Content Include="Content\fontface\quigleyw-webfont.woff" />
-    <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\font-awesome\css\Descr.WD3" />
@@ -828,6 +826,8 @@
     <Content Include="Themes\Web.config" />
     <Content Include="Themes\Default\Views\_ViewStart.cshtml" />
     <Content Include="Themes\Default\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Theme\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\web.config" />
     <None Include="Properties\PublishProfiles\YouBlog.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\html5.js" />
@@ -851,7 +851,9 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
@@ -867,7 +869,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Admin\Views\Install\" />
-    <Folder Include="Areas\Admin\Views\Theme\" />
     <Folder Include="Themes\Default\Content\" />
     <Folder Include="Themes\Default\Views\Page\" />
     <Folder Include="Themes\Default\Views\Profile\" />

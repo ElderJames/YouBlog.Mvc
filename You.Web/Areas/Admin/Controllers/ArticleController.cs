@@ -16,7 +16,7 @@ using You.Web.Models;
 namespace You.Web.Areas.Admin.Controllers
 {
 
-    [AdminAuthorize]
+    [Authorize]
     public class ArticleController : Common.Controller
     {
         private ArticleService articleService;

@@ -11,7 +11,7 @@ using You.Web.Areas.Admin.Models;
 
 namespace You.Web.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
+    [Authorize]
     public class ProfileController : Common.Controller
     {
         UserService userService;

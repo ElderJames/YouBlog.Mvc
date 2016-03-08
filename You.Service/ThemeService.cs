@@ -11,29 +11,25 @@ using System.Runtime.Remoting.Messaging;
 
 namespace You.Service
 {
-    public class ThemeService : BaseService<Theme>
+    public class ThemeService : BaseService<Theme>,IService
     {
         //string[] m_subKeleyiFolder = Directory.GetDirectories(System.Web.Server.MapPath("/hvtimg\\"));
 
         //  private static readonly EmptyTemplateService _DefaultCommandService = new EmptyTemplateService();
 
         // private static TemplateServiceProvider currentProvider = () => _DefaultCommandService;
-
-        public static ICollection<Theme> Themes = null;
+        public ICollection<Theme> Themes { get { return GetThemes(); } }
         
 
         public ThemeService()
         {
-            TemplateDirectoryName = "~/Content/Themes/";
+            TemplateDirectoryName = "~/Themes/";
             DefaultTemplateName = "Default";
             TemplateFileExtension = "cshtml";
         }
 
         public ICollection<Theme> GetThemes()
         {
-            if (Themes != null)
-                return Themes;
-            
             ICollection<Theme> themes = null;
             string themeBasePath = System.Web.HttpContext.Current.Server.MapPath(TemplateDirectoryName);
             string[] themePaths = Directory.GetDirectories(themeBasePath);
@@ -55,16 +51,13 @@ namespace You.Service
                         Directory = themePaths[i]
                     });
                 }
-              
-                 
             }
-            Themes = themes;
             return themes;
         }
 
         public Theme FindbyUser(int uid)
         {
-            var _theme=Find(t => t.UserID == uid);
+            var _theme = Find(t => t.UserID == uid);
 
             return _theme;
         }

@@ -1,0 +1,70 @@
+﻿@model You.Models.Theme
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section styles{
+
+    <link href="~/Areas/Admin/css/bootstrap-dialog.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="~/Areas/Admin/css/select2.css" rel="stylesheet" />
+}
+
+<div id="content">
+    <!--breadcrumbs-->
+    <div id="content-header">
+        <div id="breadcrumb"> <a href="index.html" title="回到首页" class="tip-bottom"><i class="icon-home"></i> 首页</a></div>
+        <h1>主题管理</h1>
+    </div>
+    <!--End-breadcrumbs-->
+    <!--Action boxes-->
+    <div class="container-fluid">
+        <!--End-Action boxes-->
+        <hr>
+        <!--Chart-box-->
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="widget-box">
+
+                    <div class="widget-title">
+                        <span class="icon"> <i class="icon-th"></i> </span>
+                        <h5>文章列表</h5>
+                        @*<span class="label label-info">Featured</span>*@
+                    </div>
+                    <div class="widget-content nopadding">
+                        <form class="form-horizontal" method="post" id="ThemeForm" action="#">
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.Name, new { @class = "control-label" })
+                                <div class="controls">
+                                    <input id="Category" class="span11" type="text" placeholder="请选择栏目">
+                                    @Html.HiddenFor(model => model.Name, new { id = "ThemeName" })
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                @Html.LabelFor(model => model.Style, new { @class = "control-label" })
+                                <div class="controls">
+                                    <input id="Category" class="span11" type="text" placeholder="请选择栏目">
+                                    @Html.HiddenFor(model => model.Style, new { id = "ThemeName" })
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-actions">
+                            @Html.HiddenFor(model => model.Id, new { id = "ThemeID" })
+                            <input type="submit" id="submit" value="提交" class="btn btn-success" data-method="@ViewBag.Method">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Areas/Admin/js/bootstrap-dialog.min.js"></script>
+    <script src="~/Areas/Admin/js/bootstrap-table.min.js"></script>
+    <script src="~/Areas/Admin/js/select2.min.js"></script>
+    <script src="~/Areas/Admin/js/custom/theme.js"></script>
+}

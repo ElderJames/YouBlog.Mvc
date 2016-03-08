@@ -10,26 +10,24 @@ using You.Service;
 
 namespace You.Web.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
+    [Authorize]
     public class ThemeController : Common.Controller
     {
         ThemeService themeService = null;
 
         public ThemeController()
         {
-            themeService = new ThemeService();
+            themeService = ThemeService.Current;
         }
         //
         // GET: /Admin/Theme/
         public ActionResult Index()
         {
-            var ThemeList = new ThemeService().GetThemes();
+            var ThemeList = themeService.GetThemes();
             TempData["Theme"] = ThemeList;
             ViewBag.ThemeList = ThemeList;
-            //Theme _theme = null;
-            var _theme = themeService.FindbyUser(Convert.ToInt32(User.FindFirst(ClaimTypes.Sid).Value));
+            Theme _theme = themeService.FindbyUser(Convert.ToInt32(User.FindFirst(ClaimTypes.Sid).Value));
             if (_theme == null) _theme = new Theme { Name = "Default" };
-
             return View(_theme);
         }
 
@@ -52,7 +50,7 @@ namespace You.Web.Areas.Admin.Controllers
                 }
                 else return Success("没有修改");
             }
-            
+
             theme.Id = 0;
             theme.SetTime = DateTime.Now;
             theme.UserID = uid;

@@ -9,7 +9,7 @@ using You.Data.Types;
 
 namespace You.Web.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
+    [Authorize]
     public class CategoryController : Common.Controller
     {
         protected CategoryService categoryService;

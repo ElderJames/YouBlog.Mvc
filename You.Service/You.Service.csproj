@@ -69,6 +69,7 @@
     <Compile Include="BaseService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CommonModelService.cs" />
+    <Compile Include="IService.cs" />
     <Compile Include="MenuService.cs" />
     <Compile Include="MessageService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

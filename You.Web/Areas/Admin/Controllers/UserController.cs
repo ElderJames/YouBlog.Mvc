@@ -9,7 +9,7 @@ using You.Data.Security;
 
 namespace You.Web.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
+    [Authorize]
     public class UserController : Common.Controller
     {
         UserService userService = new UserService();

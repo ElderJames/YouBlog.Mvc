@@ -23,7 +23,7 @@ namespace You.Web.Areas.Admin.Controllers
 
             categoryService.Add(new Category { CategoryID = 1, Name = "生活",SubTitle="live",ParentId = 0, CreateTime = DateTime.Now, Type = CategoryType.Article, State = ItemState.Nomal });
        
-            commonModelService.Add(new CommonModel { Title = "世界，你好", SubTitle = "hello-worda", CategoryID = 1, Hits = 0, UserID = 1, Article = new Article { ArticleID = 1, Author = "杨舜杰", Content = "欢迎使用我做的网站，开发语言为C#，数据库是MSSQL", Intro = "欢迎使用我做的网站" }, Model = "Article", ReleaseDate = DateTime.Now, State = CommonModelState.UnDelete, Tags = "欢迎,使用" });
+            commonModelService.Add(new CommonModel { Title = "世界，你好", SubTitle = "hello-world", CategoryID = 1, Hits = 0, UserID = 1, Article = new Article { ArticleID = 1, Author = "杨舜杰", Content = "欢迎使用我做的网站，开发语言为C#，数据库是MSSQL", Intro = "欢迎使用我做的网站" }, Model = "Article", ReleaseDate = DateTime.Now, State = CommonModelState.UnDelete, Tags = "欢迎,使用" });
           
 
 

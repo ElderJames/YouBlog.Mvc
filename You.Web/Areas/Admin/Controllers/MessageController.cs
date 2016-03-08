@@ -12,7 +12,7 @@ using You.Core;
 
 namespace You.Web.Areas.Admin.Controllers
 {
-    [AdminAuthorize]
+    [Authorize]
     public class MessageController : Common.Controller
     {
         MessageService messageService = new MessageService();

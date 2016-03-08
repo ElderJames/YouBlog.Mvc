@@ -4,7 +4,7 @@ using System.Web.Routing;
 
 namespace You.Web.Areas.Admin
 {
-    public class AdminAuthorizeAttribute : AuthorizeAttribute
+    public class AuthorizeAttribute : System.Web.Mvc.AuthorizeAttribute
     {
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
