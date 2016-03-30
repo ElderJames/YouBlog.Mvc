@@ -3,6 +3,9 @@ using System.Web.Mvc;
 
 namespace You.Web
 {
+    /// <summary>
+    /// 主题管理
+    /// </summary>
     public static class ThemeManager
     {
         public static void Config()

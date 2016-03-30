@@ -2,6 +2,9 @@
 
 namespace You.Web
 {
+    /// <summary>
+    /// 自定义主题引擎
+    /// </summary>
     public class ThemeViewEngine : RazorViewEngine
     {
         public ThemeViewEngine()
