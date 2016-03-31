@@ -72,7 +72,6 @@
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\EFRepository.cs" />
-    <Compile Include="Repository\EFRepositoryAsync.cs" />
     <Compile Include="ThemeFactory.cs" />
     <Compile Include="Types\OrderType.cs" />
     <Compile Include="EFDbContext.cs" />

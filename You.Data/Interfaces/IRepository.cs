@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace You.Data
 {
-    public interface IRepository<T>:IRepositoryAsync<T>,IRepositorySync<T> where T:class
+    public interface IRepository<T> where T:class
     {
         int pageCount { get; set; }
     }

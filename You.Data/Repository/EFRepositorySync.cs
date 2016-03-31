@@ -11,7 +11,11 @@ using You.Data.Types;
 
 namespace You.Data.Repository
 {
-    public class EFRepositoryAsync<T>:IRepositoryAsync<T> where T :class
+    /// <summary>
+    /// EF仓储
+    /// </summary>
+    /// <typeparam name="T">实体类型</typeparam>
+    public class EFRepositorySync<T> : IRepositorySync<T> where T : class
     {
         private DbContext _baseDbContext;
 
@@ -21,68 +25,69 @@ namespace You.Data.Repository
         /// 构造函数
         /// </summary>
         /// <param name="dbContext">数据上下文</param>
-        public EFRepositoryAsync(IDbContext db)
+        public EFRepositorySync(IDbContext db)
         {
             _baseDbContext = db as DbContext;
         }
+
         /// <summary>
-        /// 添加(异步保存)
+        /// 添加
         /// </summary>
         /// <param name="entity">数据实体</param>
-        /// <returns>添加后的数据实体</returns>
-        public async Task<T> AddAsync(T entity, bool isSave = true)
+        /// <param name="isSave">是否立即保存</param>
+        /// <returns></returns>
+        public T Add(T entity, bool isSave = true)
         {
             _baseDbContext.Set<T>().Add(entity);
-            if (isSave) await SaveAsync();
+            if (isSave) _baseDbContext.SaveChanges();
             return entity;
         }
 
         /// <summary>
-        /// 批量添加（异步保存）
+        /// 批量添加【立即执行】
         /// </summary>
         /// <param name="entities">数据列表</param>
-        /// <param name="isSave">是否立即保存</param>
-        /// <returns></returns>
-        public async Task<int> AddRangeAsync(IEnumerable<T> entities, bool isSave = true)
+        /// <returns>添加的记录数</returns>
+        public int AddRange(IEnumerable<T> entities, bool isSave = true)
         {
             _baseDbContext.Set<T>().AddRange(entities);
-            return isSave ? await SaveAsync() : 0;
+            return isSave ? _baseDbContext.SaveChanges() : 0;
         }
 
         /// <summary>
-        /// 修改(异步保存)
+        /// 修改
         /// </summary>
         /// <param name="entity">数据实体</param>
         /// <param name="isSave">是否立即保存</param>
         /// <returns></returns>
-        public async Task<bool> UpdateAsync(T entity, bool isSave = true)
+        public bool Update(T entity, bool isSave = true)
         {
             _baseDbContext.Set<T>().Attach(entity);
             _baseDbContext.Entry<T>(entity).State = EntityState.Modified;
-            return isSave ? await SaveAsync() > 0 : true;
+            return isSave ? _baseDbContext.SaveChanges() > 0 : true;
         }
 
-        public async Task<int> UpdateRangeAsync(IEnumerable<T> entities, bool isSave = true)
+        public int UpdateRange(IEnumerable<T> entities,bool isSave=true)
         {
             entities.ToList().ForEach(entity =>
             {
                 _baseDbContext.Set<T>().Attach(entity);
                 _baseDbContext.Entry<T>(entity).State = EntityState.Modified;
             });
-            return isSave ? await SaveAsync() : 0;
+            return isSave ? _baseDbContext.SaveChanges() : 0;
         }
 
         /// <summary>
-        /// 删除(异步保存)
+        /// 删除
         /// </summary>
         /// <param name="entity">数据实体</param>
         /// <param name="isSave">是否立即保存</param>
         /// <returns></returns>
-        public async Task<bool> DeleteAsync(T entity, bool isSave = true)
+        public bool Delete(T entity, bool isSave = true)
         {
             _baseDbContext.Set<T>().Attach(entity);
             _baseDbContext.Entry<T>(entity).State = EntityState.Deleted;
-            return isSave ? await SaveAsync() > 0 : true;
+            return isSave ? _baseDbContext.SaveChanges() > 0 : true;
         }
 
         /// <summary>
@@ -91,17 +96,21 @@ namespace You.Data.Repository
         /// <param name="entities">数据列表</param>
         /// <param name="isSave">是否立即保存</param>
         /// <returns>删除的记录数</returns>
-        public async Task<int> DeleteRangeAsync(IEnumerable<T> entities, bool isSave = true)
+        public int DeleteRange(IEnumerable<T> entities, bool isSave = true)
         {
             _baseDbContext.Set<T>().RemoveRange(entities);
-            return isSave ? await this.SaveAsync() : 0;
+            return isSave ? _baseDbContext.SaveChanges() : 0;
         }
 
-        public async Task<int> SaveAsync()
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <returns>受影响的记录数</returns>
+        public int Save()
         {
             try
             {
-                return await _baseDbContext.SaveChangesAsync();
+                return _baseDbContext.SaveChanges();
             }
             catch (DbEntityValidationException dbEx)//验证错误
             {
@@ -123,34 +132,65 @@ namespace You.Data.Repository
             return 0;
         }
 
-        public async Task<int> CountAsync(Expression<Func<T, bool>> countLamdba = null)
+        /// <summary>
+        /// 是否有满足条件的记录
+        /// </summary>
+        /// <param name="anyLamdba">条件表达式</param>
+        /// <returns></returns>
+        public bool Exist(Expression<Func<T, bool>> anyLamdba)
         {
-            if (countLamdba == null)
-                return await _baseDbContext.Set<T>().CountAsync();
-            else
-                return await _baseDbContext.Set<T>().CountAsync(countLamdba);
+            return _baseDbContext.Set<T>().Any(anyLamdba);
         }
 
-        public async Task<bool> ExistAsync(Expression<Func<T, bool>> anyLambda)
+        /// <summary>
+        /// 查询记录数
+        /// </summary>
+        /// <param name="countLamdba">查询表达式</param>
+        /// <returns>记录数</returns>
+        public int Count(Expression<Func<T, bool>> countLamdba)
         {
-            return await _baseDbContext.Set<T>().AnyAsync(anyLambda);
+            return _baseDbContext.Set<T>().Count(countLamdba);
         }
 
-        public async Task<T> FindAsync(int ID)
+
+        /// <summary>
+        /// 查找实体
+        /// </summary>
+        /// <param name="ID">实体ID</param>
+        /// <returns></returns>
+        public T Find(int ID)
         {
-            return await _baseDbContext.Set<T>().FindAsync(ID);
+            return _baseDbContext.Set<T>().Find(ID);
         }
 
-        public async Task<T> FindAsync(Expression<Func<T, bool>> findLambda)
+        /// <summary>
+        /// 查找实体 
+        /// </summary>
+        /// <param name="findLambda">Lambda表达式</param>
+        /// <returns></returns>
+        public T Find(Expression<Func<T, bool>> findLambda)
         {
-            return await _baseDbContext.Set<T>().SingleOrDefaultAsync(findLambda);
-        }
-        public async Task<IEnumerable<T>> FindAllAsync()
-        {
-            return await FindListAsync<int>(0, T => true, OrderType.No, null);
+            return _baseDbContext.Set<T>().SingleOrDefault(findLambda);
         }
 
-        public async Task<IEnumerable<T>> FindListAsync<TKey>(int number, Expression<Func<T, bool>> whereLandba, OrderType orderType, Expression<Func<T, TKey>> orderLandba)
+        /// <summary>
+        /// 查找所有列表
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<T> FindAll()
+        {
+            return FindList<int>(0, T => true, OrderType.No, null);
+        }
+
+        /// <summary>
+        /// 查找数据列表
+        /// </summary>
+        /// <param name="number">返回的记录数【0-返回所有】</param>
+        /// <param name="whereLandba">查询条件</param>
+        /// <param name="orderType">排序方式</param>
+        /// <param name="orderLandba">排序条件</param>
+        /// <returns></returns>
+        public IQueryable<T> FindList<TKey>(int number, Expression<Func<T, bool>> whereLandba, OrderType orderType, Expression<Func<T, TKey>> orderLandba)
         {
             IQueryable<T> _tIQueryable = _baseDbContext.Set<T>().Where(whereLandba);
             switch (orderType)
@@ -163,11 +203,11 @@ namespace You.Data.Repository
                     break;
             }
             if (number > 0) _tIQueryable = _tIQueryable.Take(number);
-            return await _tIQueryable.ToListAsync();
+            return _tIQueryable;
         }
 
         /// <summary>
-        /// 分页查询（异步）
+        /// 
         /// </summary>
         /// <typeparam name="TKey">排序字段类型</typeparam>
         /// <param name="pageIndex">页码【从1开始】</param>
@@ -177,10 +217,10 @@ namespace You.Data.Repository
         /// <param name="orderType">排序类型</param>
         /// <param name="orderLandba">排序表达式</param>
         /// <returns></returns>
-        public async Task<IEnumerable<T>> FindPageListAsync<TKey>(int pageIndex, int pageNumber, Expression<Func<T, bool>> whereLandba, OrderType orderType, Expression<Func<T, TKey>> orderLandba)
+        public IQueryable<T> FindPageList<TKey>(int pageIndex, int pageNumber, Expression<Func<T, bool>> whereLandba, OrderType orderType, Expression<Func<T, TKey>> orderLandba)
         {
             IQueryable<T> _tIQueryable = _baseDbContext.Set<T>().Where(whereLandba);
-            pageCount = await _tIQueryable.CountAsync();
+            pageCount = _tIQueryable.Count();
             switch (orderType)
             {
                 case OrderType.Asc:
@@ -192,7 +232,9 @@ namespace You.Data.Repository
                 default: _tIQueryable = _tIQueryable.OrderBy(p => true); break;
             }
             _tIQueryable = _tIQueryable.Skip((pageIndex - 1) * pageNumber).Take(pageNumber);
-            return await _tIQueryable.ToListAsync();
+            return _tIQueryable;
         }
+
+    
     }
 }

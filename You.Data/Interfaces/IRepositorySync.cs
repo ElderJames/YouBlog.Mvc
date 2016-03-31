@@ -11,7 +11,7 @@ namespace You.Data
     /// 仓储接口
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    public interface IRepositorySync<T> where T : class
+    public interface IRepositorySync<T>:IRepository<T> where T : class
     {
         int pageCount { get; set; }
         /// <summary>
