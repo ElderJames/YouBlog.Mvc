@@ -1,4 +1,5 @@
-﻿using System.Runtime.Remoting.Messaging;
+﻿using System;
+using System.Runtime.Remoting.Messaging;
 
 namespace You.Data
 {
@@ -8,16 +9,18 @@ namespace You.Data
     public class ContextFactory
     {
         /// <summary>
-        /// 获取当前请求内的数据上下文
+        /// 获取当前请求线程内的数据上下文
         /// </summary>
         /// <returns></returns>
-        public static YouDbContext GetCurrentContext()
+        public static IDbContext GetCurrentContext<TContext>() where TContext:class
         {
-            YouDbContext _nContext = CallContext.GetData("YouContext") as YouDbContext;
+            Type contextType = typeof(TContext);
+            IDbContext _nContext = CallContext.GetData(contextType.FullName) as IDbContext;
             if (_nContext == null)
             {
-                _nContext = new YouDbContext();
-                CallContext.SetData("YouContext", _nContext);
+                //反射创建一个数据上下文实例
+                _nContext = Activator.CreateInstance(contextType) as IDbContext;
+                CallContext.SetData(contextType.FullName, _nContext);
             }
             return _nContext;
         }

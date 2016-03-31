@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNet.Identity;
 using System.Security.Claims;
 using You.Models;
+using You.Data;
 
 namespace You.Service
 {
-    public class UserService:BaseService<User>
+    public class UserService:BaseService<User>,IService<User>
     {
         public bool Exist(string name,string email) { return Exist(u =>u.UserName==name|| u.Email == email); }
 

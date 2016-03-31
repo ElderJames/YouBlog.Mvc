@@ -9,7 +9,7 @@ using You.Service;
 namespace You.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class MenuController : Common.Controller
+    public class MenuController : Controller
     {
         // GET: Admin/Menu
         MenuService menuService;

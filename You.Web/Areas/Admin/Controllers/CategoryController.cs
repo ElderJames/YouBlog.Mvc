@@ -10,7 +10,7 @@ using You.Data.Types;
 namespace You.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class CategoryController : Common.Controller
+    public class CategoryController : Controller
     {
         protected CategoryService categoryService;
         protected CommonModelService commonModelService;

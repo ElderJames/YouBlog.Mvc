@@ -22,12 +22,14 @@ namespace You.Service
 
         public IQueryable<CommonModel> FindPageList(string tag,out int total, int pageIndex, int pageSize)
         {
-            return FindPageList(pageIndex, pageSize, out total, cm => cm.Tags.Contains(tag) && cm.State == CommonModelState.Normal&& !cm.isPage, OrderType.Desc, cm => cm.ReleaseDate);
+            var list = FindPageList(pageIndex, pageSize, out total, cm => cm.Tags.Contains(tag) && cm.State == CommonModelState.Normal && !cm.isPage, OrderType.Desc, cm => cm.ReleaseDate);
+            return list;
         }
 
         public IQueryable<CommonModel> FindPageList(int categoryID,out int total, int pageIndex, int pageSize)
         {
-            return FindPageList(pageIndex, pageSize, out total, com => (com.CategoryID == categoryID || com.Category.ParentPath.Contains("|" + categoryID + "|")) && com.State == CommonModelState.Normal, OrderType.Desc, cm => cm.ReleaseDate);
+            var list=FindPageList(pageIndex, pageSize,out total,com => (com.CategoryID == categoryID || com.Category.ParentPath.Contains("|" + categoryID + "|")) && com.State == CommonModelState.Normal, OrderType.Desc, cm => cm.ReleaseDate);
+            return list;
         }
 
         public IQueryable<CommonModel> FindPageList(out int totalRecord, int? pageIndex, int? pageSize, string model, string title, string subTitle, string tag,string keyword, int categoryID, string inputer, Nullable<DateTime> fromDate, Nullable<DateTime> toDate, OrderType orderType,CommonModelState state=CommonModelState.Normal)
@@ -47,12 +49,14 @@ namespace You.Service
             int Size = pageSize == null ? 1 : (int)pageSize;
             if (pageSize == null) Size = 20;
             //获取实体列表
-            return FindPageList(Index, Size,out totalRecord, whereLandba, orderType, cm => cm.ReleaseDate);
+            var list= FindPageList(Index, Size,out totalRecord, whereLandba, orderType, cm => cm.ReleaseDate);
+            totalRecord = pageCount;
+            return list;
         }
 
         public bool Delete(CommonModel commonModel,bool isSave)
         {
-            var nContext = ContextFactory.GetCurrentContext();
+            var nContext = ContextFactory.GetCurrentContext<EFDbContext>() as EFDbContext;
             if (commonModel.Attachment != null) nContext.Attachments.RemoveRange(commonModel.Attachment);
             if (commonModel.Article != null) nContext.Articles.Remove(commonModel.Article);
           //  if (commonModel.Consultation != null) nContext.Consultations.RemoveRange(commonModel.Consultation);
@@ -67,7 +71,8 @@ namespace You.Service
             int Index = pageIndex == null ? 1 : (int)pageIndex;
             int Size = pageSize == null ? 1 : (int)pageSize;
             if (pageSize == null) Size = 20;
-            return base.FindPageList(Index, Size, out totalRecord, whereLandba, OrderType.Desc, cm => cm.ReleaseDate);
+            var list= base.FindPageList(Index, Size,out totalRecord, whereLandba, OrderType.Desc, cm => cm.ReleaseDate);
+            return list;
         }
         /// <summary>
         /// 通过栏目ID查找文章

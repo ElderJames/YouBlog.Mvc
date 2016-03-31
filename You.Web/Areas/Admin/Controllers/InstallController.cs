@@ -7,11 +7,11 @@ using You.Service;
 
 namespace You.Web.Areas.Admin.Controllers
 {
-    public class InstallController : Common.Controller
+    public class InstallController : Controller
     {
-        UserService userService = new UserService();
-        CommonModelService commonModelService = new CommonModelService();
-        CategoryService categoryService = new CategoryService();
+        UserService userService = GetService<User>() as UserService;
+        CommonModelService commonModelService = GetService<CommonModel>() as CommonModelService;
+        CategoryService categoryService = GetService<Category>() as CategoryService; 
 
         // GET: Admin/Default
         public ActionResult Index()

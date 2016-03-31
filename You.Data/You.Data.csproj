@@ -64,11 +64,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ContextFactory.cs" />
+    <Compile Include="Interfaces\IDbContext.cs" />
+    <Compile Include="Interfaces\IRepository.cs" />
+    <Compile Include="Interfaces\IRepositorySync.cs" />
+    <Compile Include="Interfaces\IRepositoryAsync.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\EFRepository.cs" />
+    <Compile Include="Repository\EFRepositoryAsync.cs" />
     <Compile Include="ThemeFactory.cs" />
-    <Compile Include="YouDbContext.cs" />
+    <Compile Include="Types\OrderType.cs" />
+    <Compile Include="EFDbContext.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\You.Models\You.Models.csproj">

@@ -1,9 +1,10 @@
 ﻿using You.Models;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace You.Data
 {
-    public class YouDbContext : DbContext
+    public class EFDbContext : DbContext,IDbContext
     {
         #region 内容
         public DbSet<Category> Categories { get; set; }
@@ -28,9 +29,7 @@ namespace You.Data
         public DbSet<Message> Messages { get; set; }
         #endregion
 
-
-
-        public YouDbContext()
+        public EFDbContext()
             : base("name=YouConnection")
         {
             Database.CreateIfNotExists();

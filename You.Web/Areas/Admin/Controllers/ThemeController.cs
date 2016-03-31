@@ -11,7 +11,7 @@ using You.Service;
 namespace You.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class ThemeController : Common.Controller
+    public class ThemeController : Controller
     {
         ThemeService themeService = null;
 

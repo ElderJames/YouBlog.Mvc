@@ -1,25 +1,25 @@
-﻿using You.Service.Types;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
+using You.Data;
+using You.Data.Types;
 
 namespace You.Service
 {
-    /// <summary>
-    /// 服务接口
-    /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    public interface IService<T>
+    public interface IService<T> where T:class
     {
+        int pageCount { get; set; }
+
+        void SetRespository(IRepository<T> repo);
         /// <summary>
         /// 添加
         /// </summary>
         /// <param name="entity">数据实体</param>
         /// <returns>添加后的数据实体</returns>
         T Add(T entity, bool isSave = true);
-        Task<T> AddAsync(T entity, bool isSave = true);
 
         /// <summary>
         /// 批量添加
@@ -28,7 +28,6 @@ namespace You.Service
         /// <param name="isSave">是否立即保存</param>
         /// <returns></returns>
         int AddRange(IEnumerable<T> entities, bool isSave = true);
-        Task<int> AddRangeAsync(IEnumerable<T> entities, bool isSave = true);
 
         /// <summary>
         /// 修改
@@ -37,10 +36,9 @@ namespace You.Service
         /// <param name="isSave">是否立即保存</param>
         /// <returns></returns>
         bool Update(T entity, bool isSave = true);
-        Task<bool> UpdateAsync(T entity, bool isSave = true);
 
         int UpdateRange(IEnumerable<T> entities, bool isSave);
-        Task<int> UpDateRangeAsync(IEnumerable<T> entities, bool isSave);
+
 
         /// <summary>
         /// 删除
@@ -49,7 +47,6 @@ namespace You.Service
         /// <param name="isSave">是否立即保存</param>
         /// <returns></returns>
         bool Delete(T entity, bool isSave = true);
-        Task<bool> DeleteAsync(T entity, bool isSave = true);
 
         /// <summary>
         /// 批量删除
@@ -58,14 +55,12 @@ namespace You.Service
         /// <param name="isSave">是否立即保存</param>
         /// <returns>删除的记录数</returns>
         int DeleteRange(IEnumerable<T> entities, bool isSave = true);
-        Task<int> DeleteRangeAsync(IEnumerable<T> entities, bool isSave = true);
 
         /// <summary>
         /// 保存
         /// </summary>
         /// <returns>受影响的记录数</returns>
         int Save();
-        Task<int> SaveAsync();
 
         /// <summary>
         /// 查询记录数
@@ -80,7 +75,7 @@ namespace You.Service
         /// <param name="anyLambda">查询表达式</param>
         /// <returns>布尔值</returns>
         bool Exist(Expression<Func<T, bool>> anyLambda);
-        Task<bool> ExistAsync(Expression<Func<T, bool>> anyLambda);
+
 
         /// <summary>
         /// 查找实体
@@ -88,7 +83,7 @@ namespace You.Service
         /// <param name="ID">实体ID</param>
         /// <returns></returns>
         T Find(int ID);
-        Task<T> FindAsync(int ID);
+
 
         /// <summary>
         /// 查找实体 
@@ -96,7 +91,7 @@ namespace You.Service
         /// <param name="findLambda">Lambda表达式</param>
         /// <returns></returns>
         T Find(Expression<Func<T, bool>> findLambda);
-        Task<T> FindAsync(Expression<Func<T, bool>> findLambda);
+
 
         /// <summary>
         /// 查找所有列表
@@ -112,6 +107,8 @@ namespace You.Service
         /// <param name="orderType">排序方式</param>
         /// <param name="orderLandba">排序条件</param>
         /// <returns></returns>
-        IQueryable<T> FindList<TKey>(int pageIndex, int pageNumber, out int totalNumber, Expression<Func<T, bool>> whereLandba, OrderType orderType, Expression<Func<T, TKey>> orderLandba);
+        IQueryable<T> FindList<TKey>(int number, Expression<Func<T, bool>> whereLandba, OrderType orderType, Expression<Func<T, TKey>> orderLandba);
+
+        IQueryable<T> FindPageList<TKey>(int pageIndex, int pageNumber,out int total, Expression<Func<T, bool>> whereLandba, OrderType orderType, Expression<Func<T, TKey>> orderLandba);
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace You.Service.Types
+﻿namespace You.Data.Types
 {
     /// <summary>
     /// 排序类型

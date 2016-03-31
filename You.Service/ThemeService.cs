@@ -11,7 +11,7 @@ using System.Runtime.Remoting.Messaging;
 
 namespace You.Service
 {
-    public class ThemeService : BaseService<Theme>,IService
+    public class ThemeService : BaseService<Theme>
     {
         //string[] m_subKeleyiFolder = Directory.GetDirectories(System.Web.Server.MapPath("/hvtimg\\"));
 

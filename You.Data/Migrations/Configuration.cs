@@ -2,7 +2,7 @@ namespace You.Data.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    public class Configuration : DbMigrationsConfiguration<YouDbContext>
+    public class Configuration : DbMigrationsConfiguration<EFDbContext>
     {
         public Configuration()
         {
@@ -10,7 +10,7 @@ namespace You.Data.Migrations
             AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(YouDbContext context)
+        protected override void Seed(EFDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

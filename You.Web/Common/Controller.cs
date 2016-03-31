@@ -4,11 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Security.Claims;
+using You.Service;
+using You.Data;
+using You.Data.Repository;
 
-namespace You.Web.Common
+namespace You.Web
 {
     public class Controller : System.Web.Mvc.Controller
     {
+        protected static IService<T> GetService<T>() where T:class
+        {
+            IDbContext db = ContextFactory.GetCurrentContext<EFDbContext>();
+            IRepository<T> repo =new EFRepository<T>(db);
+            return ServiceFactory.Current.GetService<T>(repo);
+        }
+
         protected System.Web.Mvc.JsonResult Json(object data = null)
         {
             return new You.Web.Json(data);

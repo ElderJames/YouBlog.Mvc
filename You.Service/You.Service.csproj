@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="ArticleService.cs" />
     <Compile Include="AttachmentService.cs" />
+    <Compile Include="BaseServiceAsync.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="CategoryService.cs" />
     <Compile Include="CommonModelService.cs" />
@@ -76,7 +77,6 @@
     <Compile Include="ServiceFactory.cs" />
     <Compile Include="TagService.cs" />
     <Compile Include="ThemeService.cs" />
-    <Compile Include="Types\OrderType.cs" />
     <Compile Include="UserService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -95,7 +95,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

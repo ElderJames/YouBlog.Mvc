@@ -23,7 +23,7 @@ namespace You.Web.Areas.Admin.Controllers
     /// </remarks>
     /// </summary>
     [Authorize]
-    public class AttachmentController : Common.Controller
+    public class AttachmentController : Controller
     {
         private AttachmentService attachmentService;
         public UploadConfig UploadConfig { get; private set; }

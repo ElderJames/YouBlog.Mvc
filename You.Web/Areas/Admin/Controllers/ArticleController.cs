@@ -17,7 +17,7 @@ namespace You.Web.Areas.Admin.Controllers
 {
 
     [Authorize]
-    public class ArticleController : Common.Controller
+    public class ArticleController : Controller
     {
         private ArticleService articleService;
         private CommonModelService commonModelService;

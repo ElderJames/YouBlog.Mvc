@@ -8,7 +8,7 @@ namespace You.Web
     {
         protected void Application_Start()
         {
-            System.Data.Entity.Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<Data.YouDbContext, Data.Migrations.Configuration>());
+            System.Data.Entity.Database.SetInitializer(new System.Data.Entity.MigrateDatabaseToLatestVersion<Data.EFDbContext, Data.Migrations.Configuration>());
          
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

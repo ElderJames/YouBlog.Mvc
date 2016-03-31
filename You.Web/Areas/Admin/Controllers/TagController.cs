@@ -9,7 +9,7 @@ using You.Service;
 namespace You.Web.Areas.Admin.Controllers
 {
     [Authorize]
-    public class TagController : Common.Controller
+    public class TagController : Controller
     {
         // GET: Admin/Tag
         TagService tagService;
