@@ -12,7 +12,7 @@ namespace You.Data
     /// 仓储接口（异步方法）
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    public interface IRepositoryAsync<T>:IRepository<T> where T:class
+    public interface IRepositoryAsync<T> where T:class
     {
         int pageCount { get; set; }
 

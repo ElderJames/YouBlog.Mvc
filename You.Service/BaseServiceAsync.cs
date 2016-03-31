@@ -15,7 +15,7 @@ namespace You.Service
     /// <summary>
     /// 业务逻辑基类(异步)
     /// </summary>
-    public partial class BaseServiceAsync<T> where T:class
+    public class BaseServiceAsync<T>:IService<T> where T:class
     {
         private IRepositoryAsync<T> _repo;
 
