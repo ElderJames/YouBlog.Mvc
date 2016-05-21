@@ -9,9 +9,9 @@ namespace You.Web.Areas.Admin.Controllers
 {
     public class InstallController : Controller
     {
-        UserService userService = GetService<User>() as UserService;
-        CommonModelService commonModelService = GetService<CommonModel>() as CommonModelService;
-        CategoryService categoryService = GetService<Category>() as CategoryService; 
+        IService<User> userService = GetService<User>();
+        IService<CommonModel> commonModelService = GetService<CommonModel>();
+        IService<Category> categoryService = GetService<Category>(); 
 
         // GET: Admin/Default
         public ActionResult Index()

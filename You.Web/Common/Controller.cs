@@ -15,15 +15,8 @@ namespace You.Web
         protected static IService<T> GetService<T>() where T:class
         {
             IDbContext db = ContextFactory.GetCurrentContext<EFDbContext>();
-            IRepositoryAsync<T> repo =new EFRepository<T>(db);
-            return ServiceFactory.Current.GetService<T>(repo);
-        }
-
-        protected static IService<T> GetServiceAsync<T>() where T :class
-        {
-            IDbContext db = ContextFactory.GetCurrentContext<EFDbContext>();
-            IRepository<T> repo = new EFRepositoryAsync<T>(db);
-            return ServiceFactory.Current.GetService<T>(repo);
+            IRepository<T> repo = new EFRepository<T>(db);
+            return ServiceFactory.GetService<T>(repo);
         }
 
         protected System.Web.Mvc.JsonResult Json(object data = null)
