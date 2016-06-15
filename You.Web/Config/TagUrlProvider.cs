@@ -11,7 +11,7 @@ namespace You.Web
 {
     public class TagUrlProvider : RouteBase
     {
-        TagService tagService = new TagService();
+        TagService tagService = ServiceFactory.GetService<Tag>() as TagService;
         public override RouteData GetRouteData(HttpContextBase httpContext)
         {
             var virtualPath = httpContext.Request.AppRelativeCurrentExecutionFilePath + httpContext.Request.PathInfo;//获取相对路径

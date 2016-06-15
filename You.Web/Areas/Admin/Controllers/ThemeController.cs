@@ -17,7 +17,7 @@ namespace You.Web.Areas.Admin.Controllers
         UserService userService;
         public ThemeController()
         {
-            themeService = ThemeService.Current;
+            themeService = ServiceFactory.GetService<Theme>() as ThemeService;
             userService = ServiceFactory.GetService<User>() as UserService;
         }
         //
@@ -27,7 +27,7 @@ namespace You.Web.Areas.Admin.Controllers
             var ThemeList = themeService.GetThemes();
             TempData["Theme"] = ThemeList;
             ViewBag.ThemeList = ThemeList;
-            Theme _theme = themeService.FindbyUser(Convert.ToInt32(User.FindFirst(ClaimTypes.Sid).Value));
+            Theme _theme = themeService.FindbyUser(User.UserID);
             if (_theme == null) _theme = new Theme { Name = "Default" };
             return View(_theme);
         }

@@ -15,7 +15,11 @@ namespace You.Web.Areas.Admin.Controllers
         protected CategoryService categoryService;
         protected CommonModelService commonModelService;
 
-        public CategoryController() { categoryService = new CategoryService(); commonModelService = new CommonModelService(); }
+        public CategoryController()
+        {
+            categoryService = GetService<Category>() as CategoryService;
+            commonModelService = GetService<CommonModel>() as CommonModelService;
+        }
         // GET: You/Category
         public ActionResult Index()
         {

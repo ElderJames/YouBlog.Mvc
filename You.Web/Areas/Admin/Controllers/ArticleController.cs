@@ -22,7 +22,12 @@ namespace You.Web.Areas.Admin.Controllers
         private ArticleService articleService;
         private CommonModelService commonModelService;
         private TagService tagService;
-        public ArticleController() { articleService = new ArticleService(); commonModelService = new CommonModelService(); tagService = new TagService(); }
+        public ArticleController()
+        {
+            articleService = GetService<Article>() as ArticleService;
+            commonModelService = GetService<CommonModel>() as CommonModelService;
+            tagService = GetService<Tag>() as TagService;
+        }
 
         public ActionResult Index(int? id)
         {
@@ -287,7 +292,7 @@ namespace You.Web.Areas.Admin.Controllers
         {
             if (category == null) category = 0;
             int _total;
-            var _rows = commonModelService.FindPageList(out _total, offset / limit + 1, limit, "Article", title, null, null, Server.UrlDecode(search), (int)category, input, fromDate, toDate, OrderType.Desc, state)
+            var _rows = commonModelService.FindPageList(out _total, offset / limit + 1, limit, "Article", title, null, null, Server.UrlDecode(search), (int)category,User.UserName, fromDate, toDate, OrderType.Desc, state)
                 .Select(cm => new CommonModelViewModel()
                 {
                     CategoryID = cm.CategoryID,
@@ -340,39 +345,5 @@ namespace You.Web.Areas.Admin.Controllers
             return Json(new { total = _total, rows = _rows.ToList() });
         }
 
-        public ActionResult Translate(string query)
-        {
-            try
-            {
-                Regex regex = new Regex(@"^[A-Za-z0-9]+$");
-                if (!string.IsNullOrEmpty(query) && !regex.IsMatch(query))
-                {
-                    HttpHelper http = new HttpHelper();
-                    HttpItem item = new HttpItem { URL = "http://fanyi.youdao.com/openapi.do?type=data&doctype=json&version=1.1&relatedUrl=http%3A%2F%2Ffanyi.youdao.com%2F&keyfrom=fanyiweb&key=null&translate=on&q=" + Url.Encode(query), ContentType = "application/json" };
-                    string json = http.GetHtml(item).Html;
-                    JObject o = JObject.Parse(json);
-                    JArray data = new JArray();
-                    if ((int)o["errorCode"] == 0)
-                    {
-                        data = (JArray)o["translation"];
-                        if (o["web"] != null)
-                            foreach (var v in (JArray)o["web"])
-                            {
-                                if (v["key"].ToString() == query)
-                                    foreach (var s in (JArray)v["value"])
-                                    {
-                                        data.Add(s);
-                                    }
-                            }
-                        if (data.Count > 0) return Success(data);
-                    }
-                }
-            }
-            catch
-            {
-                return Fail();
-            }
-            return Fail();
-        }
     }
 }

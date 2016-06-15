@@ -11,7 +11,7 @@ namespace You.Web
 {
     public class CategoryUrlProvider : RouteBase
     {
-        CategoryService categoryService = new CategoryService();
+        CategoryService categoryService = ServiceFactory.GetService<Category>() as CategoryService; 
         public override RouteData GetRouteData(HttpContextBase httpContext)
         {
             var virtualPath = httpContext.Request.AppRelativeCurrentExecutionFilePath + httpContext.Request.PathInfo;//获取相对路径

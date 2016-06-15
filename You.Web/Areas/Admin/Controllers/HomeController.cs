@@ -3,6 +3,10 @@ using System.Web.Mvc;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using You.Service;
+using System.Text.RegularExpressions;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Newtonsoft.Json.Linq;
 
 namespace You.Web.Areas.Admin.Controllers
 {
@@ -43,8 +47,43 @@ namespace You.Web.Areas.Admin.Controllers
         }
 
 
+        [HttpGet]
+        public async Task<ActionResult> Translate(string query)
+        {
+            try
+            {
+                Regex regex = new Regex(@"^[A-Za-z0-9]+$");
+                if (!string.IsNullOrEmpty(query) && !regex.IsMatch(query))
+                {
+                    var httpClient = new HttpClient();
+                    string json = await httpClient.GetStringAsync("http://fanyi.youdao.com/openapi.do?type=data&doctype=json&version=1.1&relatedUrl=http%3A%2F%2Ffanyi.youdao.com%2F&keyfrom=fanyiweb&key=null&translate=on&q=" + Url.Encode(query));
+
+                    JObject o = JObject.Parse(json);
+                    JArray data = new JArray();
+                    if ((int)o["errorCode"] == 0)
+                    {
+                        data = (JArray)o["translation"];
+                        if (o["web"] != null)
+                            foreach (var v in (JArray)o["web"])
+                            {
+                                if (v["key"].ToString() == query)
+                                    foreach (var s in (JArray)v["value"])
+                                    {
+                                        data.Add(s);
+                                    }
+                            }
+                        if (data.Count > 0) return Success(data);
+                    }
+                }
+            }
+            catch
+            {
+                return Fail();
+            }
+            return Fail();
+        }
         #region 属性
-        private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }
+        // private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }
         #endregion
     }
 }

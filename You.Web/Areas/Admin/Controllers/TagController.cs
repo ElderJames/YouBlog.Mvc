@@ -14,7 +14,7 @@ namespace You.Web.Areas.Admin.Controllers
         // GET: Admin/Tag
         TagService tagService;
 
-        public TagController() { tagService = new TagService(); }
+        public TagController() { tagService = GetService<Tag>() as TagService; }
 
         public ActionResult Index()
         {

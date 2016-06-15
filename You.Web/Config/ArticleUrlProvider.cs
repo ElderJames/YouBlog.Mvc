@@ -7,7 +7,7 @@ namespace You.Web
 {
     public class ArticleUrlProvider : RouteBase
     {
-        CommonModelService commonModelService = new CommonModelService();
+        CommonModelService commonModelService = ServiceFactory.GetService<CommonModel>() as  CommonModelService;
         public override RouteData GetRouteData(System.Web.HttpContextBase httpContext)
         {
             var virtualPath = httpContext.Request.AppRelativeCurrentExecutionFilePath + httpContext.Request.PathInfo;//获取相对路径

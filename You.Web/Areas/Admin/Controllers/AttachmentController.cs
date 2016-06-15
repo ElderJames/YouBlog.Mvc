@@ -31,7 +31,7 @@ namespace You.Web.Areas.Admin.Controllers
 
         public AttachmentController()
         {
-            attachmentService = new AttachmentService();
+            attachmentService = GetService<Attachment>() as  AttachmentService;
 
             UploadConfig = new UploadConfig()
             {

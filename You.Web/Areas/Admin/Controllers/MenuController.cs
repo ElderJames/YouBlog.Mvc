@@ -14,7 +14,7 @@ namespace You.Web.Areas.Admin.Controllers
         // GET: Admin/Menu
         MenuService menuService;
 
-        public MenuController() { menuService = new MenuService(); }
+        public MenuController() { menuService = GetService<Menu>() as MenuService; }
 
         public ActionResult Index()
         {

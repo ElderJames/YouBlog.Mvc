@@ -5,22 +5,23 @@ using Microsoft.AspNet.Identity;
 using System.Web;
 using You.Data.Security;
 using You.Web.Areas.Admin.Models;
+using You.Models;
 
 namespace You.Web.Areas.Admin.Controllers
 {
 
     public class AccountController :Controller
     {
-        UserService userService = new UserService();
+        UserService userService = GetService<User>() as UserService;
         // GET: Admin/Acount
         public ActionResult Index(string returnUrl)
         {
-            if (User.Identity.IsAuthenticated)
+            if (AuthenticationManager.User.Identity.IsAuthenticated)
             {
                 if (string.IsNullOrEmpty(returnUrl)) return Redirect("~/Admin/Home");
                 else return Redirect(returnUrl);
             }
-                TempData["returnUrl"] = returnUrl;
+            TempData["returnUrl"] = returnUrl;
             return View();
         }
 
@@ -40,7 +41,7 @@ namespace You.Web.Areas.Admin.Controllers
                     
                     var _identity = userService.CreateIdentity(_user);
                     AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-                    AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = loginViewModel.RememberMe }, _identity);
+                    AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = loginViewModel.RememberMe }, _identity); 
                     if (TempData["returnUrl"] != null) return Redirect(TempData["returnUrl"].ToString());
                     else return Redirect("~/Admin/Home");
                 }

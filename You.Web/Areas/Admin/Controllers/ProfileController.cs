@@ -7,7 +7,6 @@ using Microsoft.Owin.Security;
 using System.Security.Claims;
 using You.Web.Areas.Admin.Models;
 using You.Data.Security;
-using You.Web.Areas.Admin.Models;
 
 namespace You.Web.Areas.Admin.Controllers
 {
@@ -15,9 +14,8 @@ namespace You.Web.Areas.Admin.Controllers
     public class ProfileController : Controller
     {
         UserService userService;
-        private IAuthenticationManager AuthenticationManager { get { return HttpContext.GetOwinContext().Authentication; } }
-
-        public ProfileController() { userService = new UserService(); }
+       
+        public ProfileController() { userService = GetService<User>() as UserService; }
         // GET: Admin/Profile
 
         public ActionResult ChangePassword()
@@ -25,7 +23,8 @@ namespace You.Web.Areas.Admin.Controllers
             //User _user = userService.Find(1);
             //_user.Password = Core.Security.Encryption.Sha256("qwaszx");
             //userService.Update(_user);
-            ViewBag.Id = Convert.ToInt32(AuthenticationManager.User.FindFirst(ClaimTypes.Sid).Value);
+            //ViewBag.Id = Convert.ToInt32(AuthenticationManager.User.FindFirst(ClaimTypes.Sid).Value);
+            ViewBag.Id = User.UserID;
             return View();
         }
 

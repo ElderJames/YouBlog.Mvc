@@ -15,7 +15,7 @@ namespace You.Web.Areas.Admin.Controllers
     [Authorize]
     public class MessageController : Controller
     {
-        MessageService messageService = new MessageService();
+        MessageService messageService = GetService<Message>() as MessageService;
 
         // GET: Admin/Message
         public ActionResult Index()

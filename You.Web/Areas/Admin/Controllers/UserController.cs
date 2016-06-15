@@ -12,7 +12,7 @@ namespace You.Web.Areas.Admin.Controllers
     [Authorize]
     public class UserController : Controller
     {
-        UserService userService = new UserService();
+        UserService userService = GetService<User>() as UserService;
    
         // GET: Admin/User
         public ActionResult Index()
