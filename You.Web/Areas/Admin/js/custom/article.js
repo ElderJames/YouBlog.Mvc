@@ -25,7 +25,7 @@
                 data: $('#Article-form').serialize(),
                 dataType: 'json',
                 success: function (data) {
-                dialog.close();
+                    dialog.close();
                     if (data.result) $('#Article-form')[0].reset();
                     callback(data);
                 },

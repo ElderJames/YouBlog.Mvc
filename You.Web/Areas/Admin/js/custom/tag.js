@@ -49,7 +49,7 @@
             $.post("/Admin/Tag/Recovery", { TagID: id }, function (data) { dialog.close(); callback(data); })
         },
         getTranslation: function (origin, callback) {
-        $.get('/Admin/Article/Translate?query=' + origin, function (data) { callback(data); })
+        $.get('/Admin/Translate?query=' + origin, function (data) { callback(data); })
     }
     }
 

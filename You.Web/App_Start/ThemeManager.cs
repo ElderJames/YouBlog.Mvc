@@ -10,8 +10,8 @@ namespace You.Web
     {
         public static void Config()
         {
-            System.Web.Mvc.ViewEngines.Engines.Clear();
-            System.Web.Mvc.ViewEngines.Engines.Add(new ThemeViewEngine());
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new ThemeViewEngine());
         }
 
         public static string ThemePath

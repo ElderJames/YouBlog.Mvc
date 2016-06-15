@@ -36,7 +36,7 @@ var Script = function () {
             $.getJSON('/Admin/Tag/List', function (data) { callback(data); return data; });
         },
         getTranslation: function (origin, callback) {
-            $.get('Translate?query=' + origin, function (data) { callback(data); })
+            $.get('/Admin/Translate?query=' + origin, function (data) { callback(data); })
         }
     }
 

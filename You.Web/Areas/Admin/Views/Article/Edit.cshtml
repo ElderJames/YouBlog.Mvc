@@ -20,7 +20,7 @@
                         <h5>@ViewBag.Title</h5>
                     </div>
                     <div class="widget-content nopadding">
-                        <form class="form-horizontal" method="post" id="ArticalForm" action="#">
+                        <form class="form-horizontal" method="post" id="ArticalForm" action="@Url.Action("Add")">
 
                             @Html.AntiForgeryToken()
                             @Html.ValidationSummary(true)

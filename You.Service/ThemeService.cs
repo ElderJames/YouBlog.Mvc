@@ -95,19 +95,20 @@ namespace You.Service
         /// </summary>
         public static string TemplateFileExtension { get; set; }
 
-        public static ThemeService Current
-        {
-            get
-            {
-                var themeService = CallContext.GetData("Theme") as ThemeService;
 
-                if (themeService == null)
-                {
-                    themeService = new ThemeService();
-                    CallContext.SetData("Theme", themeService);
-                }
-                return themeService;
-            }
-        }
+        //public static ThemeService Current
+        //{
+        //    get
+        //    {
+        //        var themeService = CallContext.GetData("Theme") as ThemeService;
+
+        //        if (themeService == null)
+        //        {
+        //            themeService = new ThemeService();
+        //            CallContext.SetData("Theme", themeService);
+        //        }
+        //        return themeService;
+        //    }
+        //}
     }
 }

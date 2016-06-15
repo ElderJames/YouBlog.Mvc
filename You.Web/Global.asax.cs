@@ -15,7 +15,7 @@ namespace You.Web
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            ThemeManager.Config();
+         //   ThemeManager.Config();
         }
     }
 }

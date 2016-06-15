@@ -19,21 +19,21 @@ namespace You.Web
                url: "p/{page}.html",
                defaults: new { controller = "Home", action = "Index", pageNum = UrlParameter.Optional },
                namespaces: new string[] { "You.Web.Controllers" }
-           );
+            );
 
             routes.MapRoute(
               name: "post",
               url: "post/{id}.html",
               defaults: new { controller = "Article", action = "Index", id = UrlParameter.Optional },
               namespaces: new string[] { "You.Web.Controllers" }
-          );
+            );
 
             routes.MapRoute(
-        name: "cat2",
-        url: "cat/{id}.{page}.html",
-        defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional, page = UrlParameter.Optional },
-        namespaces: new string[] { "You.Web.Controllers" }
-        );
+                name: "cat2",
+                url: "cat/{id}.{page}.html",
+                defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional, page = UrlParameter.Optional },
+                namespaces: new string[] { "You.Web.Controllers" }
+            );
 
             routes.MapRoute(
                 name: "cat",
@@ -41,30 +41,30 @@ namespace You.Web
                 defaults: new { controller = "Category", action = "Index", id = UrlParameter.Optional },
                 namespaces: new string[] { "You.Web.Controllers" }
             );
-            
+
 
             routes.MapRoute(
-         name: "t2",
-         url: "tag/{id}.{page}.html",
-         defaults: new { controller = "Tag", action = "Index", id = UrlParameter.Optional, page = UrlParameter.Optional },
-         namespaces: new string[] { "You.Web.Controllers" }
-     );
+                name: "t2",
+                url: "tag/{id}.{page}.html",
+                defaults: new { controller = "Tag", action = "Index", id = UrlParameter.Optional, page = UrlParameter.Optional },
+                namespaces: new string[] { "You.Web.Controllers" }
+            );
 
             routes.MapRoute(
                name: "t",
                url: "tag/{id}.html",
                defaults: new { controller = "Tag", action = "Index", id = UrlParameter.Optional },
                namespaces: new string[] { "You.Web.Controllers" }
-           );
+            );
 
-         
+
 
             routes.MapRoute(
               name: "Default",
               url: "{controller}/{action}/{id}",
               defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
               namespaces: new string[] { "You.Web.Controllers" }
-          );
+            );
             routes.MapRoute(
                 name: "Default2",
                 url: "{controller}/{action}/{id}.html",
