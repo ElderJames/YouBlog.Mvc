@@ -20,15 +20,21 @@ namespace You.Models
 
         [Display(Name = "路径名")]
         public string Directory { get; set; }
+        
+        public string Description { get; set; }
 
         [Display(Name = "样式")]
         public string Style { get; set; }
 
-        [Display(Name = "用户")]
-        public int UserID { get; set; }
+        [Required]
         public User User { get; set; }
 
         [Display(Name = "修改时间")]
         public DateTime SetTime { get; set; }
+
+        public ItemState State { get; set; }
+
+        public string Author { get; set; }
+
     }
 }

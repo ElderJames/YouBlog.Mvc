@@ -46,7 +46,7 @@ namespace You.Models
         /// 录入者
         /// </summary>
         [Display(Name = "录入者")]
-
+        [Required]
         [JsonIgnore]
         public User Inputer { get; set; }
 
@@ -92,13 +92,14 @@ namespace You.Models
         public virtual Article Article { get; set; }
 
         /// <summary>
-        /// 咨询
+        /// 评论
         /// </summary>
-       // public virtual ICollection<Consultation> Consultation { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
         /// <summary>
         /// 栏目
         /// </summary>
+        [Required]
         public virtual Category Category { get; set; }
 
         [JsonIgnore]
