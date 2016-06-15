@@ -32,7 +32,7 @@ namespace You.Service
             return list;
         }
 
-        public IQueryable<CommonModel> FindPageList(out int totalRecord, int? pageIndex, int? pageSize, string model, string title, string subTitle, string tag,string keyword, int categoryID, string inputer, Nullable<DateTime> fromDate, Nullable<DateTime> toDate, OrderType orderType,CommonModelState state=CommonModelState.Normal)
+        public IQueryable<CommonModel> FindPageList(out int totalRecord, int? pageIndex, int? pageSize, string model, string title, string subTitle, string tag,string keyword, int categoryID, string inputer, DateTime? fromDate, DateTime? toDate, OrderType orderType,CommonModelState state=CommonModelState.Normal)
         {
             var whereLandba = PredicateBuilder.True<CommonModel>();
             if (model == null || model != "All") whereLandba = whereLandba.And(cm => cm.Model == model);
@@ -54,7 +54,7 @@ namespace You.Service
             return list;
         }
 
-        public bool Delete(CommonModel commonModel,bool isSave)
+        public new bool Delete(CommonModel commonModel,bool isSave)
         {
             var nContext = ContextFactory.GetCurrentContext<EFDbContext>() as EFDbContext;
             if (commonModel.Attachment != null) nContext.Attachments.RemoveRange(commonModel.Attachment);
