@@ -41,7 +41,8 @@ namespace You.Web.Filter
 
         private string GetCurrentUserTheme()
         {
-            var _theme= ThemeService.Current.FindbyUser(Convert.ToInt32(HttpContext.Current.GetOwinContext().Authentication.User.FindFirst(ClaimTypes.Sid).Value));
+            var themeService = ServiceFactory.GetService<Theme>() as ThemeService;
+            var _theme = themeService.FindbyUser(Convert.ToInt32(HttpContext.Current.GetOwinContext().Authentication.User.FindFirst(ClaimTypes.Sid).Value));
             return _theme.Directory;
         }
     }

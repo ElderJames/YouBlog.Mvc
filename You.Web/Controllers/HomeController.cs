@@ -12,7 +12,7 @@ namespace You.Web.Controllers
     {
         public ActionResult Index(int? page)
         {
-            CommonModelService commonModelService = new CommonModelService();
+            CommonModelService commonModelService = GetService<CommonModel>() as CommonModelService;
             int pageNumber = page ?? 1;
 
             var article = commonModelService.FindList(0, cm => cm.State == CommonModelState.Normal&&!cm.isPage, OrderType.Desc, cm => cm.ReleaseDate);
@@ -22,14 +22,14 @@ namespace You.Web.Controllers
 
         public ActionResult Sidebar()
         {
-            CategoryService categoryService = new CategoryService();
+            CategoryService categoryService = GetService<Category>() as CategoryService;
             var list = categoryService.FindList(10, cat => cat.State == ItemState.Nomal, OrderType.Desc, cat => cat.Order).ToList();
             return PartialView("Sidebar", list);
         }
 
         public ActionResult Menu()
         {
-            MenuService menuService = new MenuService();
+            MenuService menuService = GetService<Menu>() as MenuService;
             var _menu = menuService.FindAll().OrderBy(m => m.Order).ToList();
             return PartialView("Menu", _menu);
         }

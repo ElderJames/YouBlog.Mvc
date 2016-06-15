@@ -13,7 +13,7 @@ namespace You.Web.Controllers
         // GET: Article
         public ActionResult Index(int id)
         {
-            CommonModelService commonModelService = new CommonModelService();
+            CommonModelService commonModelService = GetService<CommonModel>() as CommonModelService;
             var model = commonModelService.Find(id);
             if (model == null) return RedirectToAction("", "");
             if (model.isPage) return View("Page",model);

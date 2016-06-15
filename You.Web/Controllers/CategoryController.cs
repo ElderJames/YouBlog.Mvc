@@ -16,13 +16,13 @@ namespace You.Web.Controllers
         public ActionResult Index(int? id,int? page)
         {
             if (id == null) return RedirectToAction("", "");
-            CategoryService categoryService = new CategoryService();
+            CategoryService categoryService = GetService<Category>() as CategoryService;
             var _category = categoryService.Find((int)id);
             if (_category==null) return RedirectToAction("", "");
 
             ViewBag.Category = _category;
 
-            CommonModelService commonModelService = new CommonModelService();
+            CommonModelService commonModelService = GetService<CommonModel>() as CommonModelService;
             int pageNumber = page ?? 1;
             var article = commonModelService.FindList(0, cm => cm.State == CommonModelState.Normal && !cm.isPage && cm.CategoryID == id, OrderType.Desc, cm => cm.ReleaseDate);
             IPagedList<CommonModel> pageList = article.ToPagedList(pageNumber, 1);

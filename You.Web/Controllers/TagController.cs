@@ -15,11 +15,11 @@ namespace You.Web.Controllers
         // GET: Tag
         public ActionResult Index(int id,int? page)
         {
-            TagService tagService = new TagService();
+            TagService tagService = GetService<Tag>() as TagService;
             var _tag=tagService.Find(id);
             ViewBag.Tag = _tag;
             if (_tag == null) return RedirectToAction("", "");
-            CommonModelService commonModelService = new CommonModelService();
+            CommonModelService commonModelService = GetService<CommonModel>() as  CommonModelService;
             int pageNumber = page ?? 1;
             var articles = commonModelService.FindList(0, cm => cm.State == CommonModelState.Normal && !cm.isPage && cm.Tag.FirstOrDefault(c => c.Name == _tag.Name) != null, OrderType.Desc, cm => cm.ReleaseDate);
             IPagedList<CommonModel> pageList = articles.ToPagedList(pageNumber, 1);
