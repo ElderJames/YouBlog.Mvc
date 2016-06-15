@@ -66,8 +66,6 @@
     <Compile Include="ContextFactory.cs" />
     <Compile Include="Interfaces\IDbContext.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
-    <Compile Include="Interfaces\IRepositorySync.cs" />
-    <Compile Include="Interfaces\IRepositoryAsync.cs" />
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

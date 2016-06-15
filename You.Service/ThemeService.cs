@@ -57,7 +57,7 @@ namespace You.Service
 
         public Theme FindbyUser(int uid)
         {
-            var _theme = Find(t => t.UserID == uid);
+            var _theme = Find(t => t.User.UserID == uid);
 
             return _theme;
         }

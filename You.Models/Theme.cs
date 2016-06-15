@@ -18,6 +18,8 @@ namespace You.Models
         [Display(Name = "主题名称")]
         public string Name { get; set; }
 
+        public string Author { get; set; }
+
         [Display(Name = "路径名")]
         public string Directory { get; set; }
         
@@ -33,8 +35,5 @@ namespace You.Models
         public DateTime SetTime { get; set; }
 
         public ItemState State { get; set; }
-
-        public string Author { get; set; }
-
     }
 }

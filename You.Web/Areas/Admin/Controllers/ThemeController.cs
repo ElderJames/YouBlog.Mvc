@@ -14,10 +14,11 @@ namespace You.Web.Areas.Admin.Controllers
     public class ThemeController : Controller
     {
         ThemeService themeService = null;
-
+        UserService userService;
         public ThemeController()
         {
             themeService = ThemeService.Current;
+            userService = ServiceFactory.GetService<User>() as UserService;
         }
         //
         // GET: /Admin/Theme/
@@ -34,6 +35,7 @@ namespace You.Web.Areas.Admin.Controllers
         public ActionResult Update(int id)
         {
             int uid = Convert.ToInt32(AuthenticationManager.User.FindFirst(ClaimTypes.Sid).Value);
+            var _user = userService.Find(uid);
             var _theme = themeService.FindbyUser(uid);
             var ThemeList = TempData["Theme"] as ICollection<Theme>;
             if (ThemeList == null) return Fail();
@@ -53,7 +55,7 @@ namespace You.Web.Areas.Admin.Controllers
 
             theme.Id = 0;
             theme.SetTime = DateTime.Now;
-            theme.UserID = uid;
+            theme.User = _user;
             theme = themeService.Add(theme);
             if (theme.Id > 0) return Success();
 
